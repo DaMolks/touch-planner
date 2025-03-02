@@ -1,1 +1,44 @@
-import React, { useState, useEffect } from 'react';\nimport './App.css';\nimport Header from './components/Header';\nimport FileUploader from './components/FileUploader';\nimport ItemsPanel from './components/ItemsPanel';\nimport RecipePanel from './components/RecipePanel';\nimport { DataProvider } from './contexts/DataContext';\nimport { PriceProvider } from './contexts/PriceContext';\n\nfunction App() {\n  const [isDataLoaded, setIsDataLoaded] = useState(false);\n\n  // Check if data is already loaded from localStorage\n  useEffect(() => {\n    const storedData = localStorage.getItem('gameData');\n    if (storedData) {\n      setIsDataLoaded(true);\n    }\n  }, []);\n\n  return (\n    <DataProvider>\n      <PriceProvider>\n        <div className=\"app\">\n          <Header />\n          <div className=\"container\">\n            {!isDataLoaded && (\n              <FileUploader onDataLoaded={() => setIsDataLoaded(true)} />\n            )}\n            \n            {isDataLoaded && (\n              <div className=\"main-content\">\n                <ItemsPanel />\n                <RecipePanel />\n              </div>\n            )}\n          </div>\n        </div>\n      </PriceProvider>\n    </DataProvider>\n  );\n}\n\nexport default App;\n
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import Header from './components/Header';
+import FileUploader from './components/FileUploader';
+import ItemsPanel from './components/ItemsPanel';
+import RecipePanel from './components/RecipePanel';
+import { DataProvider } from './contexts/DataContext';
+import { PriceProvider } from './contexts/PriceContext';
+
+function App() {
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  // Check if data is already loaded from localStorage
+  useEffect(() => {
+    const storedData = localStorage.getItem('gameData');
+    if (storedData) {
+      setIsDataLoaded(true);
+    }
+  }, []);
+
+  return (
+    <DataProvider>
+      <PriceProvider>
+        <div className="app">
+          <Header />
+          <div className="container">
+            {!isDataLoaded && (
+              <FileUploader onDataLoaded={() => setIsDataLoaded(true)} />
+            )}
+            
+            {isDataLoaded && (
+              <div className="main-content">
+                <ItemsPanel />
+                <RecipePanel />
+              </div>
+            )}
+          </div>
+        </div>
+      </PriceProvider>
+    </DataProvider>
+  );
+}
+
+export default App;
