@@ -1,34 +1,38 @@
 import React, { useEffect, useRef } from 'react';
 import { usePrices } from '../contexts/PriceContext';
+import { useData } from '../contexts/DataContext';
 import { Chart, registerables } from 'chart.js';
+import ImageWithFallback from './ImageWithFallback';
 import './PriceHistoryModal.css';
 
-// Enregistrer tous les éléments nécessaires pour Chart.js
+// Enregistrer tous les elements necessaires pour Chart.js
 Chart.register(...registerables);
 
 const PriceHistoryModal = ({ item, onClose }) => {
   const { getItemPriceHistory, getAveragePrice } = usePrices();
+  const { gameData } = useData();
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
   
-  // Récupérer l'historique des prix pour cet item
+  // Recuperer l'historique des prix pour cet item
   const priceHistory = getItemPriceHistory(item.id);
   const averagePrice = getAveragePrice(item.id);
+  const itemData = gameData.items[item.id] || {};
   
   useEffect(() => {
     // Si pas d'historique, ne rien faire
     if (!priceHistory || priceHistory.length === 0) return;
     
-    // Détruire le graphique précédent s'il existe
+    // Detruire le graphique precedent s'il existe
     if (chartInstance.current) {
       chartInstance.current.destroy();
     }
     
-    // Préparer les données pour le graphique
+    // Preparer les donnees pour le graphique
     const dates = [];
     const prices = [];
     
-    // Trier l'historique par date (du plus ancien au plus récent)
+    // Trier l'historique par date (du plus ancien au plus recent)
     const sortedHistory = [...priceHistory].sort((a, b) => 
       new Date(a.timestamp) - new Date(b.timestamp)
     );
@@ -39,7 +43,7 @@ const PriceHistoryModal = ({ item, onClose }) => {
       prices.push(entry.price);
     });
     
-    // Créer le nouveau graphique
+    // Creer le nouveau graphique
     const ctx = chartRef.current.getContext('2d');
     chartInstance.current = new Chart(ctx, {
       type: 'line',
@@ -93,7 +97,7 @@ const PriceHistoryModal = ({ item, onClose }) => {
       }
     });
     
-    // Nettoyage à la fermeture du modal
+    // Nettoyage a la fermeture du modal
     return () => {
       if (chartInstance.current) {
         chartInstance.current.destroy();
@@ -111,7 +115,14 @@ const PriceHistoryModal = ({ item, onClose }) => {
     <div className="price-history-modal">
       <div className="modal-content">
         <div className="modal-header">
-          <h2>Historique des prix - {item.name}</h2>
+          <div className="modal-title">
+            <ImageWithFallback 
+              src={itemData.imgUrl} 
+              alt={item.name} 
+              className="modal-item-image"
+            />
+            <h2>Historique des prix - {item.name}</h2>
+          </div>
           <button className="close-button" onClick={onClose}>&times;</button>
         </div>
         
@@ -131,19 +142,19 @@ const PriceHistoryModal = ({ item, onClose }) => {
                 <span className="value">{averagePrice.toLocaleString()} kamas</span>
               </div>
               <div className="summary-item">
-                <span>Prix le plus récent:</span>
+                <span>Prix le plus recent:</span>
                 <span className="value">
                   {priceHistory[priceHistory.length - 1].price.toLocaleString()} kamas
                 </span>
               </div>
               <div className="summary-item">
-                <span>Nombre d'entrées:</span>
+                <span>Nombre d'entrees:</span>
                 <span className="value">{priceHistory.length}</span>
               </div>
             </div>
             
             <div className="price-history-table-container">
-              <h3>Détail des prix</h3>
+              <h3>Detail des prix</h3>
               <table className="price-history-table">
                 <thead>
                   <tr>
