@@ -31,6 +31,18 @@
   border-bottom: 1px solid var(--border-color);
 }
 
+.modal-title {
+  display: flex;
+  align-items: center;
+}
+
+.modal-item-image {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  object-fit: contain;
+}
+
 .modal-header h2 {
   margin: 0;
   font-size: 1.4rem;
