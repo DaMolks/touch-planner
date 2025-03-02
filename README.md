@@ -10,6 +10,7 @@ Une calculatrice de craft avancée pour Dofus Touch avec suivi des prix du march
 - **Indicateurs visuels** : Prix bas, moyen ou élevé par rapport à l'historique
 - **Calcul par lots** : Simulez des crafts de 1, 10, 100 ou 1000 items
 - **Stockage local** : Les prix sont sauvegardés dans votre navigateur
+- **Mise à jour des données** : Possibilité de recharger le fichier JSON si de nouvelles données sont disponibles
 
 ## Installation
 
@@ -41,6 +42,7 @@ npm run build
 1. Au premier démarrage, vous devez charger un fichier JSON contenant les données du jeu
 2. Utilisez le [script de scraping](https://github.com/DaMolks/dofus-touch-scraper) pour générer ce fichier JSON
 3. Une fois chargé, les données sont stockées dans le navigateur
+4. Vous pouvez mettre à jour les données à tout moment via le bouton "Recharger les données" dans l'en-tête
 
 ### Navigation et filtrage
 
