@@ -1,17 +1,1 @@
-import React from 'react';
-import './Header.css';
-
-const Header = () => {
-  return (
-    <header className="header">
-      <div className="container">
-        <div className="header-content">
-          <h1>Touch Planner</h1>
-          <p>Calculatrice de craft avancée pour Dofus Touch</p>
-        </div>
-      </div>
-    </header>
-  );
-};
-
-export default Header;
+import React from 'react';\nimport ReloadButton from './ReloadButton';\nimport './Header.css';\n\nconst Header = () => {\n  return (\n    <header className=\"header\">\n      <div className=\"container\">\n        <div className=\"header-content\">\n          <div className=\"header-left\">\n            <h1>Touch Planner</h1>\n            <p>Calculatrice de craft avancée pour Dofus Touch</p>\n          </div>\n          <div className=\"header-right\">\n            <ReloadButton />\n          </div>\n        </div>\n      </div>\n    </header>\n  );\n};\n\nexport default Header;\n
