@@ -1,0 +1,74 @@
+.reload-button-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  position: relative;
+}
+
+.reload-button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: inline-block;
+  transition: background-color 0.2s;
+}
+
+.reload-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.reload-button input[type="file"] {
+  display: none;
+}
+
+.reload-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.status-message {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 5px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.status-message.success {
+  background-color: rgba(39, 174, 96, 0.2);
+  color: var(--success-color);
+  border: 1px solid var(--success-color);
+}
+
+.status-message.error {
+  background-color: rgba(231, 76, 60, 0.2);
+  color: var(--error-color);
+  border: 1px solid var(--error-color);
+}
+
+.data-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .reload-button-container {
+    margin: 10px 0;
+  }
+  
+  .status-message {
+    position: static;
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+}
