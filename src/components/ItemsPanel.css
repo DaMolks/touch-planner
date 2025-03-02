@@ -1,0 +1,154 @@
+.items-panel {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: calc(100vh - 180px);
+}
+
+.job-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 15px;
+  gap: 2px;
+}
+
+.job-tab {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.job-tab.active {
+  border-bottom: 3px solid var(--primary-color);
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.job-tab:hover {
+  background-color: var(--light-bg);
+}
+
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+  gap: 8px;
+}
+
+.category-filter {
+  padding: 5px 10px;
+  background-color: var(--light-bg);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.category-filter.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.search-container {
+  margin-bottom: 15px;
+}
+
+.search-box {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.items-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.no-items-message {
+  padding: 20px;
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+.level-group {
+  margin-bottom: 8px;
+}
+
+.level-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: var(--light-bg);
+  cursor: pointer;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.level-header:hover {
+  background-color: #e0e0e0;
+}
+
+.level-name {
+  font-weight: bold;
+}
+
+.level-count {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.collapse-icon {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.level-items {
+  padding: 0 8px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.item:hover {
+  background-color: var(--light-bg);
+}
+
+.item.selected {
+  background-color: rgba(52, 152, 219, 0.1);
+  border-left: 3px solid var(--primary-color);
+}
+
+.item-image {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  object-fit: contain;
+}
+
+.item-name {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .items-panel {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+  }
+}
