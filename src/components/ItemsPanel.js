@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useData } from '../contexts/DataContext';
+import ImageWithFallback from './ImageWithFallback';
 import './ItemsPanel.css';
 
 const ItemsPanel = () => {
@@ -20,7 +21,7 @@ const ItemsPanel = () => {
 
   const [collapsedLevels, setCollapsedLevels] = useState({});
 
-  // Gérer l'état ouvert/fermé des niveaux
+  // Gerer l'etat ouvert/ferme des niveaux
   const toggleLevel = (level) => {
     setCollapsedLevels(prev => ({
       ...prev,
@@ -29,7 +30,7 @@ const ItemsPanel = () => {
   };
 
   if (loading) {
-    return <div className="items-panel panel loading">Chargement des données...</div>;
+    return <div className="items-panel panel loading">Chargement des donnees...</div>;
   }
 
   const categories = getCategories();
@@ -41,7 +42,7 @@ const ItemsPanel = () => {
     <div className="items-panel panel">
       <h2>Objets</h2>
 
-      {/* Onglets des métiers */}
+      {/* Onglets des metiers */}
       <div className="job-tabs">
         {jobs.map(job => (
           <div 
@@ -54,7 +55,7 @@ const ItemsPanel = () => {
         ))}
       </div>
 
-      {/* Filtres de catégories */}
+      {/* Filtres de categories */}
       <div className="category-filters">
         {categories.map(category => (
           <div 
@@ -81,7 +82,7 @@ const ItemsPanel = () => {
       {/* Liste des objets */}
       <div className="items-list">
         {levels.length === 0 ? (
-          <div className="no-items-message">Aucun objet ne correspond à votre recherche.</div>
+          <div className="no-items-message">Aucun objet ne correspond a votre recherche.</div>
         ) : (
           levels.map(level => {
             const items = groupedItems[level];
@@ -102,14 +103,11 @@ const ItemsPanel = () => {
                         className={`item ${selectedItemId === item.id ? 'selected' : ''}`}
                         onClick={() => setSelectedItemId(item.id)}
                       >
-                        {item.imgUrl && (
-                          <img 
-                            src={item.imgUrl} 
-                            alt={item.name} 
-                            className="item-image"
-                            onError={(e) => e.target.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='}
-                          />
-                        )}
+                        <ImageWithFallback 
+                          src={item.imgUrl} 
+                          alt={item.name} 
+                          className="item-image"
+                        />
                         <span className="item-name">{item.name}</span>
                       </div>
                     ))}
