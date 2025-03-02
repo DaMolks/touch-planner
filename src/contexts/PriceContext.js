@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Création du contexte
+// Creation du contexte
 const PriceContext = createContext();
 
-// Hook personnalisé pour utiliser le contexte
+// Hook personnalise pour utiliser le contexte
 export const usePrices = () => useContext(PriceContext);
 
 // Structure pour un enregistrement d'historique de prix
@@ -15,7 +15,7 @@ export const PriceProvider = ({ children }) => {
   const [priceHistory, setPriceHistory] = useState({});
   const [batchSize, setBatchSize] = useState(1);
   
-  // Charger les prix et l'historique depuis localStorage au démarrage
+  // Charger les prix et l'historique depuis localStorage au demarrage
   useEffect(() => {
     const loadPrices = () => {
       try {
@@ -36,18 +36,18 @@ export const PriceProvider = ({ children }) => {
     loadPrices();
   }, []);
 
-  // Mettre à jour le prix d'un item
+  // Mettre a jour le prix d'un item
   const updatePrice = (itemId, price) => {
     const numericPrice = typeof price === 'string' ? parseFloat(price) : price;
     const newPrices = { ...prices, [itemId]: numericPrice };
     setPrices(newPrices);
     localStorage.setItem('prices', JSON.stringify(newPrices));
 
-    // Ajouter à l'historique des prix
+    // Ajouter a l'historique des prix
     addPriceHistory(itemId, numericPrice);
   };
 
-  // Ajouter un prix à l'historique
+  // Ajouter un prix a l'historique
   const addPriceHistory = (itemId, price) => {
     const now = new Date();
     const newHistory = { ...priceHistory };
@@ -83,7 +83,7 @@ export const PriceProvider = ({ children }) => {
     return sum / history.length;
   };
 
-  // Déterminer l'indicateur de prix (bas, moyen, élevé)
+  // Determiner l'indicateur de prix (bas, moyen, eleve)
   const getPriceIndicator = (itemId, currentPrice) => {
     if (!currentPrice) return 'price-average';
     
@@ -93,7 +93,7 @@ export const PriceProvider = ({ children }) => {
     const ratio = currentPrice / avgPrice;
 
     if (ratio < 0.9) return 'price-low'; // Prix bas
-    if (ratio > 1.1) return 'price-high'; // Prix élevé
+    if (ratio > 1.1) return 'price-high'; // Prix eleve
     return 'price-average'; // Prix moyen
   };
 
@@ -102,7 +102,7 @@ export const PriceProvider = ({ children }) => {
     return priceHistory[itemId] || [];
   };
 
-  // Calculer le coût des ingrédients pour une recette
+  // Calculer le cout des ingredients pour une recette
   const calculateIngredientsCost = (recipe) => {
     if (!recipe || !recipe.ingredients) return 0;
 
@@ -116,7 +116,7 @@ export const PriceProvider = ({ children }) => {
   const calculateProfit = (recipeId, sellingPrice, includesTax = true) => {
     if (!recipeId) return { profit: 0, profitPercent: 0 };
 
-    // Par défaut, on considère que le prix de vente inclut déjà la taxe
+    // Par defaut, on considere que le prix de vente inclut deja la taxe
     let netSellingPrice = sellingPrice;
     
     // Taxe de vente (3%)
