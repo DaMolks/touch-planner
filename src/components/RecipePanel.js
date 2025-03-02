@@ -125,3 +125,87 @@ const RecipePanel = () => {
           ></span>
         </div>
       </div>
+
+      {/* Ingrédients */}
+      <div className="ingredients-container">
+        <h3>Ingrédients nécessaires pour {batchSize} item(s):</h3>
+        <div className="ingredients-list">
+          {recipe.ingredients.map(ingredient => {
+            const ingredientItem = gameData.items[ingredient.itemId];
+            if (!ingredientItem) return null;
+
+            const totalQuantity = ingredient.quantity * batchSize;
+            
+            return (
+              <div key={ingredient.itemId} className="ingredient-item">
+                <div className="ingredient-info">
+                  {ingredientItem.imgUrl && (
+                    <img 
+                      src={ingredientItem.imgUrl} 
+                      alt={ingredientItem.name} 
+                      className="ingredient-image"
+                      onError={(e) => e.target.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='}
+                    />
+                  )}
+                  <div className="ingredient-details">
+                    <span className="ingredient-name">{ingredientItem.name}</span>
+                    <span className="ingredient-quantity">x{totalQuantity}</span>
+                  </div>
+                </div>
+                <div className="price-input">
+                  <label>Prix unitaire:</label>
+                  <input 
+                    type="number" 
+                    min="0" 
+                    value={prices[ingredient.itemId] || 0} 
+                    onChange={(e) => handlePriceChange(ingredient.itemId, e.target.value)}
+                  />
+                  <span>kamas</span>
+                  <span 
+                    className={`price-indicator ${getPriceIndicator(ingredient.itemId, prices[ingredient.itemId] || 0)}`}
+                    onClick={() => showHistory(ingredient.itemId, ingredientItem.name)}
+                    title="Voir l'historique des prix"
+                  ></span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Résultats de rentabilité */}
+      <div className="results-container">
+        <div className="calculation-row">
+          <span>Coût total des ingrédients:</span>
+          <span className="value">{profitInfo.cost.toLocaleString()} kamas</span>
+        </div>
+        <div className="calculation-row">
+          <span>Prix de vente total:</span>
+          <span className="value">{(prices[selectedItemId] * batchSize || 0).toLocaleString()} kamas</span>
+        </div>
+        <div className="calculation-row tax-row">
+          <span>Taxe de vente (3%):</span>
+          <span className="value">-{profitInfo.tax.toLocaleString()} kamas</span>
+        </div>
+        <div className="calculation-row">
+          <span>Prix net après taxe:</span>
+          <span className="value">{profitInfo.netSellingPrice.toLocaleString()} kamas</span>
+        </div>
+        <div className={`calculation-row profit-row ${profitInfo.profit >= 0 ? 'positive' : 'negative'}`}>
+          <span>Profit pour {batchSize} item(s):</span>
+          <span className="value">{profitInfo.profit.toLocaleString()} kamas ({profitInfo.profitPercent.toFixed(2)}%)</span>
+        </div>
+      </div>
+
+      {/* Modal pour l'historique des prix */}
+      {historyModalOpen && (
+        <PriceHistoryModal 
+          item={currentHistoryItem}
+          onClose={() => setHistoryModalOpen(false)}
+        />
+      )}
+    </div>
+  );
+};
+
+export default RecipePanel;
