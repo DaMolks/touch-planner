@@ -1,0 +1,9 @@
+.image-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 4px;
+}
