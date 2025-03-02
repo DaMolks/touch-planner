@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useData } from '../contexts/DataContext';
 import { usePrices } from '../contexts/PriceContext';
 import PriceHistoryModal from './PriceHistoryModal';
+import ImageWithFallback from './ImageWithFallback';
 import './RecipePanel.css';
 
 const RecipePanel = () => {
@@ -18,11 +19,11 @@ const RecipePanel = () => {
   const [historyModalOpen, setHistoryModalOpen] = useState(false);
   const [currentHistoryItem, setCurrentHistoryItem] = useState(null);
 
-  // Récupérer l'objet et la recette sélectionnés
+  // Recuperer l'objet et la recette selectionnes
   const selectedItem = selectedItemId ? gameData.items[selectedItemId] : null;
   const recipe = selectedItemId ? gameData.recipes[selectedItemId] : null;
 
-  // Calculer le profit pour le lot sélectionné
+  // Calculer le profit pour le lot selectionne
   const calculateLotProfit = () => {
     if (!selectedItemId) return { profit: 0, profitPercent: 0, tax: 0, cost: 0, netSellingPrice: 0 };
 
@@ -40,7 +41,7 @@ const RecipePanel = () => {
 
   const profitInfo = calculateLotProfit();
 
-  // Gérer le changement de prix d'un ingrédient
+  // Gerer le changement de prix d'un ingredient
   const handlePriceChange = (itemId, value) => {
     const price = parseFloat(value) || 0;
     updatePrice(itemId, price);
@@ -52,48 +53,45 @@ const RecipePanel = () => {
     setHistoryModalOpen(true);
   };
 
-  // Si aucun objet n'est sélectionné, afficher un message
+  // Si aucun objet n'est selectionne, afficher un message
   if (!selectedItem || !recipe) {
     return (
       <div className="recipe-panel panel">
-        <h2>Détails de la Recette</h2>
+        <h2>Details de la Recette</h2>
         <div className="empty-state">
-          <p>Sélectionnez un objet dans la liste pour voir sa recette et calculer sa rentabilité.</p>
+          <p>Selectionnez un objet dans la liste pour voir sa recette et calculer sa rentabilite.</p>
         </div>
       </div>
     );
   }
 
-  // Le métier associé à la recette
+  // Le metier associe a la recette
   const job = gameData.jobs[recipe.jobId];
 
   return (
     <div className="recipe-panel panel">
-      <h2>Détails de la Recette</h2>
+      <h2>Details de la Recette</h2>
       
-      {/* En-tête de la recette */}
+      {/* En-tete de la recette */}
       <div className="recipe-header">
         <div className="recipe-item-info">
-          {selectedItem.imgUrl && (
-            <img 
-              src={selectedItem.imgUrl} 
-              alt={selectedItem.name} 
-              className="recipe-item-image"
-              onError={(e) => e.target.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='}
-            />
-          )}
+          <ImageWithFallback 
+            src={selectedItem.imgUrl} 
+            alt={selectedItem.name} 
+            className="recipe-item-image"
+          />
           <div className="recipe-item-details">
             <h3>{selectedItem.name}</h3>
             <p className="item-level">Niveau {selectedItem.level || '?'}</p>
           </div>
         </div>
         <div className="recipe-profession">
-          <p><strong>Métier:</strong> {job ? job.name : 'Inconnu'}</p>
+          <p><strong>Metier:</strong> {job ? job.name : 'Inconnu'}</p>
           <p><strong>Niveau requis:</strong> {recipe.jobLevel || '?'}</p>
         </div>
       </div>
 
-      {/* Sélecteur de taille de lot */}
+      {/* Selecteur de taille de lot */}
       <div className="batch-selector">
         <label>Calculer pour un lot de:</label>
         <select 
@@ -126,9 +124,9 @@ const RecipePanel = () => {
         </div>
       </div>
 
-      {/* Ingrédients */}
+      {/* Ingredients */}
       <div className="ingredients-container">
-        <h3>Ingrédients nécessaires pour {batchSize} item(s):</h3>
+        <h3>Ingredients necessaires pour {batchSize} item(s):</h3>
         <div className="ingredients-list">
           {recipe.ingredients.map(ingredient => {
             const ingredientItem = gameData.items[ingredient.itemId];
@@ -139,14 +137,11 @@ const RecipePanel = () => {
             return (
               <div key={ingredient.itemId} className="ingredient-item">
                 <div className="ingredient-info">
-                  {ingredientItem.imgUrl && (
-                    <img 
-                      src={ingredientItem.imgUrl} 
-                      alt={ingredientItem.name} 
-                      className="ingredient-image"
-                      onError={(e) => e.target.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII='}
-                    />
-                  )}
+                  <ImageWithFallback 
+                    src={ingredientItem.imgUrl} 
+                    alt={ingredientItem.name} 
+                    className="ingredient-image"
+                  />
                   <div className="ingredient-details">
                     <span className="ingredient-name">{ingredientItem.name}</span>
                     <span className="ingredient-quantity">x{totalQuantity}</span>
@@ -173,10 +168,10 @@ const RecipePanel = () => {
         </div>
       </div>
 
-      {/* Résultats de rentabilité */}
+      {/* Resultats de rentabilite */}
       <div className="results-container">
         <div className="calculation-row">
-          <span>Coût total des ingrédients:</span>
+          <span>Cout total des ingredients:</span>
           <span className="value">{profitInfo.cost.toLocaleString()} kamas</span>
         </div>
         <div className="calculation-row">
@@ -188,7 +183,7 @@ const RecipePanel = () => {
           <span className="value">-{profitInfo.tax.toLocaleString()} kamas</span>
         </div>
         <div className="calculation-row">
-          <span>Prix net après taxe:</span>
+          <span>Prix net apres taxe:</span>
           <span className="value">{profitInfo.netSellingPrice.toLocaleString()} kamas</span>
         </div>
         <div className={`calculation-row profit-row ${profitInfo.profit >= 0 ? 'positive' : 'negative'}`}>
