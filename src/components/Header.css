@@ -1,1 +1,46 @@
-.header {\n  background-color: var(--primary-color);\n  color: white;\n  padding: 20px 0;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n}\n\n.header-content {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n\n.header-left {\n  display: flex;\n  flex-direction: column;\n}\n\n.header h1 {\n  margin: 0;\n  color: white;\n  font-size: 2rem;\n}\n\n.header p {\n  margin: 5px 0 0 0;\n  opacity: 0.9;\n  font-size: 1rem;\n}\n\n.header-right {\n  display: flex;\n  align-items: center;\n}\n\n@media (max-width: 768px) {\n  .header-content {\n    flex-direction: column;\n    align-items: flex-start;\n  }\n  \n  .header-right {\n    margin-top: 15px;\n    width: 100%;\n  }\n}
+.header {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.header h1 {
+  margin: 0;
+  color: white;
+  font-size: 2rem;
+}
+
+.header p {
+  margin: 5px 0 0 0;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .header-right {
+    margin-top: 15px;
+    width: 100%;
+  }
+}
