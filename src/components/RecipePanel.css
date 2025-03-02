@@ -1,0 +1,238 @@
+.recipe-panel {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - 180px);
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.recipe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.recipe-item-info {
+  display: flex;
+  align-items: center;
+}
+
+.recipe-item-image {
+  width: 48px;
+  height: 48px;
+  margin-right: 15px;
+  object-fit: contain;
+}
+
+.recipe-item-details h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.item-level {
+  margin: 5px 0 0;
+  color: #666;
+}
+
+.recipe-profession {
+  text-align: right;
+}
+
+.recipe-profession p {
+  margin: 5px 0;
+}
+
+.batch-selector {
+  display: flex;
+  align-items: center;
+  background-color: var(--light-bg);
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.batch-selector label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.batch-selector select {
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: white;
+}
+
+.selling-price-container {
+  margin-bottom: 20px;
+}
+
+.selling-price-container h3 {
+  margin-bottom: 10px;
+}
+
+.price-input {
+  display: flex;
+  align-items: center;
+}
+
+.price-input label {
+  margin-right: 8px;
+}
+
+.price-input input {
+  width: 100px;
+  text-align: right;
+  padding: 6px 10px;
+  margin: 0 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+.price-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.price-low {
+  background-color: var(--success-color);
+}
+
+.price-average {
+  background-color: var(--secondary-color);
+}
+
+.price-high {
+  background-color: var(--error-color);
+}
+
+.ingredients-container {
+  margin-bottom: 20px;
+}
+
+.ingredients-container h3 {
+  margin-bottom: 10px;
+}
+
+.ingredients-list {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ingredient-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ingredient-item:last-child {
+  border-bottom: none;
+}
+
+.ingredient-info {
+  display: flex;
+  align-items: center;
+}
+
+.ingredient-image {
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  object-fit: contain;
+}
+
+.ingredient-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredient-name {
+  font-weight: bold;
+}
+
+.ingredient-quantity {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.results-container {
+  background-color: var(--light-bg);
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.calculation-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.calculation-row:last-child {
+  border-bottom: none;
+}
+
+.tax-row {
+  color: #666;
+  font-style: italic;
+}
+
+.profit-row {
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 2px solid var(--border-color);
+}
+
+.profit-row.positive .value {
+  color: var(--success-color);
+}
+
+.profit-row.negative .value {
+  color: var(--error-color);
+}
+
+@media (max-width: 768px) {
+  .recipe-header,
+  .ingredient-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .ingredient-info {
+    margin-bottom: 10px;
+  }
+  
+  .recipe-profession {
+    text-align: left;
+    margin-top: 10px;
+  }
+  
+  .price-input {
+    margin-top: 8px;
+  }
+}
