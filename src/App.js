@@ -1,51 +1,43 @@
-import React, { useState } from 'react';
-import { useGameData } from './contexts/GameDataContext';
+import React, { useState, useEffect } from 'react';
+import './App.css';
 import Header from './components/Header';
 import FileUploader from './components/FileUploader';
 import ItemsPanel from './components/ItemsPanel';
 import RecipePanel from './components/RecipePanel';
-import PriceHistoryModal from './components/PriceHistoryModal';
-import './styles/App.css';
+import { DataProvider } from './contexts/DataContext';
+import { PriceProvider } from './contexts/PriceContext';
 
 function App() {
-  const { loaded } = useGameData();
-  const [selectedItemId, setSelectedItemId] = useState(null);
-  const [historyItem, setHistoryItem] = useState(null);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
-  // Ouvrir la modal d'historique des prix
-  const openPriceHistory = (itemId, itemName) => {
-    setHistoryItem({ id: itemId, name: itemName });
-  };
-
-  // Fermer la modal d'historique des prix
-  const closePriceHistory = () => {
-    setHistoryItem(null);
-  };
+  // Check if data is already loaded from localStorage
+  useEffect(() => {
+    const storedData = localStorage.getItem('gameData');
+    if (storedData) {
+      setIsDataLoaded(true);
+    }
+  }, []);
 
   return (
-    <div className="app">
-      <Header />
-      
-      {!loaded ? (
-        <FileUploader />
-      ) : (
-        <div className="main-container">
-          <ItemsPanel onSelectItem={setSelectedItemId} />
-          <RecipePanel 
-            itemId={selectedItemId} 
-            onOpenPriceHistory={openPriceHistory} 
-          />
+    <DataProvider>
+      <PriceProvider>
+        <div className="app">
+          <Header />
+          <div className="container">
+            {!isDataLoaded && (
+              <FileUploader onDataLoaded={() => setIsDataLoaded(true)} />
+            )}
+            
+            {isDataLoaded && (
+              <div className="main-content">
+                <ItemsPanel />
+                <RecipePanel />
+              </div>
+            )}
+          </div>
         </div>
-      )}
-      
-      {historyItem && (
-        <PriceHistoryModal 
-          itemId={historyItem.id} 
-          itemName={historyItem.name} 
-          onClose={closePriceHistory} 
-        />
-      )}
-    </div>
+      </PriceProvider>
+    </DataProvider>
   );
 }
 
