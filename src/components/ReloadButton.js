@@ -7,7 +7,7 @@ const ReloadButton = () => {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
 
-  // Effacer le message après 5 secondes
+  // Effacer le message apres 5 secondes
   const clearStatus = () => {
     setTimeout(() => {
       setStatus({ type: '', message: '' });
@@ -26,12 +26,12 @@ const ReloadButton = () => {
       try {
         const jsonData = JSON.parse(e.target.result);
         
-        // Vérifier que le fichier contient les données attendues
+        // Verifier que le fichier contient les donnees attendues
         if (!jsonData.items || !jsonData.recipes || !jsonData.jobs) {
-          throw new Error('Le fichier ne contient pas toutes les données nécessaires');
+          throw new Error('Le fichier ne contient pas toutes les donnees necessaires');
         }
         
-        // Si les données ont l'air correctes, on peut les sauvegarder
+        // Si les donnees ont l'air correctes, on peut les sauvegarder
         const itemCount = Object.keys(jsonData.items).length;
         const recipeCount = Object.keys(jsonData.recipes).length;
         
@@ -39,7 +39,7 @@ const ReloadButton = () => {
         
         setStatus({ 
           type: 'success', 
-          message: `Données rechargées avec succès: ${itemCount} objets, ${recipeCount} recettes.` 
+          message: `Donnees rechargees avec succes: ${itemCount} objets, ${recipeCount} recettes.` 
         });
         clearStatus();
         
@@ -47,12 +47,12 @@ const ReloadButton = () => {
         console.error('Erreur lors du traitement du fichier JSON:', error);
         setStatus({ 
           type: 'error', 
-          message: 'Le fichier JSON est invalide. Vérifiez son format.' 
+          message: 'Le fichier JSON est invalide. Verifiez son format.' 
         });
         clearStatus();
       } finally {
         setLoading(false);
-        // Réinitialiser l'input file pour permettre de sélectionner le même fichier à nouveau
+        // Reinitialiser l'input file pour permettre de selectionner le meme fichier a nouveau
         event.target.value = '';
       }
     };
@@ -75,7 +75,7 @@ const ReloadButton = () => {
           onChange={handleFileUpload} 
           disabled={loading}
         />
-        {loading ? 'Chargement...' : 'Recharger les données'}
+        {loading ? 'Chargement...' : 'Recharger les donnees'}
       </label>
       
       {status.message && (
