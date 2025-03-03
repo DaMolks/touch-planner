@@ -8,6 +8,7 @@
   flex-direction: column;
   height: 100%;
   box-sizing: border-box;
+  width: 100%; /* Assure que le panneau occupe toute la largeur disponible */
 }
 
 .items-panel h2 {
@@ -76,6 +77,7 @@
   flex: 1;
   overflow-y: auto;
   padding-right: 5px;
+  width: 100%; /* S'assure que le conteneur prend toute la largeur */
 }
 
 .level-group {
@@ -83,6 +85,7 @@
   border: 1px solid #eee;
   border-radius: 6px;
   overflow: hidden;
+  width: 100%; /* S'assure que chaque groupe prend toute la largeur */
 }
 
 .level-header {
@@ -93,6 +96,8 @@
   background-color: #f9f9f9;
   cursor: pointer;
   font-weight: 500;
+  width: 100%; /* Assure que l'en-tête prend toute la largeur */
+  box-sizing: border-box;
 }
 
 .level-header:hover {
@@ -118,6 +123,7 @@
 .level-items-list {
   display: flex;
   flex-direction: column;
+  width: 100%; /* S'assure que la liste prend toute la largeur */
 }
 
 .item-list-row {
@@ -127,6 +133,8 @@
   border-bottom: 1px solid #f0f0f0;
   cursor: pointer;
   transition: all 0.2s;
+  width: 100%; /* Assure que chaque ligne prend toute la largeur */
+  box-sizing: border-box;
 }
 
 .item-list-row:last-child {
@@ -147,12 +155,18 @@
   height: 32px;
   object-fit: contain;
   margin-right: 12px;
+  flex-shrink: 0; /* Empêche l'image de rétrécir */
 }
 
 .item-list-name {
   flex: 1;
   font-weight: 500;
   color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px; /* Espace pour éviter que le texte ne touche le bord */
+  min-width: 0; /* Nécessaire pour que text-overflow fonctionne avec flexbox */
 }
 
 .item-list-type {
@@ -163,6 +177,12 @@
   background-color: #f0f0f0;
   padding: 2px 8px;
   border-radius: 10px;
+  flex-shrink: 0; /* Empêche le type de rétrécir */
+  width: 70px; /* Largeur fixe pour le type */
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .no-items-message {
