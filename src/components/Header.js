@@ -1,5 +1,6 @@
 import React from 'react';
 import ReloadButton from './ReloadButton';
+import ThemeToggle from './ThemeToggle';
 import './Header.css';
 
 const Header = () => {
@@ -13,6 +14,7 @@ const Header = () => {
           </div>
           <div className="header-right">
             <ReloadButton />
+            <ThemeToggle />
           </div>
         </div>
       </div>
