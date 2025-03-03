@@ -1,7 +1,7 @@
 const { contextBridge, ipcRenderer } = require('electron');
-const { app } = require('@electron/remote');
 const fs = require('fs');
 const path = require('path');
+const remote = require('@electron/remote');
 
 // Exposer des fonctionnalités sécurisées à la fenêtre de rendu
 contextBridge.exposeInMainWorld('electronAPI', {
@@ -11,7 +11,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Version Electron de localStorage pour rendre les sauvegardes plus robustes
   saveGameData: (data) => {
     try {
-      const userDataPath = app.getPath('userData');
+      const userDataPath = remote.app.getPath('userData');
       const filePath = path.join(userDataPath, 'gameData.json');
       fs.writeFileSync(filePath, JSON.stringify(data));
       return true;
@@ -23,7 +23,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   
   loadGameData: () => {
     try {
-      const userDataPath = app.getPath('userData');
+      const userDataPath = remote.app.getPath('userData');
       const filePath = path.join(userDataPath, 'gameData.json');
       
       if (fs.existsSync(filePath)) {
@@ -40,7 +40,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Enregistrer et charger l'historique des prix
   savePriceHistory: (data) => {
     try {
-      const userDataPath = app.getPath('userData');
+      const userDataPath = remote.app.getPath('userData');
       const filePath = path.join(userDataPath, 'priceHistory.json');
       fs.writeFileSync(filePath, JSON.stringify(data));
       return true;
@@ -52,7 +52,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   
   loadPriceHistory: () => {
     try {
-      const userDataPath = app.getPath('userData');
+      const userDataPath = remote.app.getPath('userData');
       const filePath = path.join(userDataPath, 'priceHistory.json');
       
       if (fs.existsSync(filePath)) {
@@ -63,6 +63,26 @@ contextBridge.exposeInMainWorld('electronAPI', {
     } catch (error) {
       console.error('Erreur lors du chargement de l\'historique des prix:', error);
       return {};
+    }
+  },
+  
+  // Ouvrir un fichier JSON
+  openJsonFile: async () => {
+    try {
+      const result = await remote.dialog.showOpenDialog({
+        properties: ['openFile'],
+        filters: [{ name: 'JSON', extensions: ['json'] }]
+      });
+      
+      if (!result.canceled && result.filePaths.length > 0) {
+        const filePath = result.filePaths[0];
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        return JSON.parse(fileContent);
+      }
+      return null;
+    } catch (error) {
+      console.error('Erreur lors de l\'ouverture du fichier:', error);
+      return null;
     }
   }
 });
