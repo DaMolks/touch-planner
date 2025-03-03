@@ -35,9 +35,6 @@ function createWindow() {
 
   // Activer remote pour cette fenêtre
   remote.enable(mainWindow.webContents);
-
-  // Désactiver le double-clic pour maximiser la fenêtre
-  mainWindow.setWindowButtonVisibility(false);
   
   // Empêcher le double-clic sur la barre de titre pour maximiser
   mainWindow.on('maximize', () => {
