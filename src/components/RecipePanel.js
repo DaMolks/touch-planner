@@ -115,7 +115,7 @@ const RecipePanel = () => {
             value={prices[selectedItemId] || 0} 
             onChange={(e) => handlePriceChange(selectedItemId, e.target.value)}
           />
-          <span>kamas</span>
+          <span className="label-kamas">kamas</span>
           <span 
             className={`price-indicator ${getPriceIndicator(selectedItemId, prices[selectedItemId] || 0)}`}
             onClick={() => showHistory(selectedItemId, selectedItem.name)}
@@ -155,7 +155,7 @@ const RecipePanel = () => {
                     value={prices[ingredient.itemId] || 0} 
                     onChange={(e) => handlePriceChange(ingredient.itemId, e.target.value)}
                   />
-                  <span>kamas</span>
+                  <span className="label-kamas">kamas</span>
                   <span 
                     className={`price-indicator ${getPriceIndicator(ingredient.itemId, prices[ingredient.itemId] || 0)}`}
                     onClick={() => showHistory(ingredient.itemId, ingredientItem.name)}
