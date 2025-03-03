@@ -41,6 +41,7 @@ const ItemsPanel = () => {
 
   const categories = getCategories();
   const groupedItems = getFilteredItems();
+  // Trier les niveaux par ordre croissant
   const levels = Object.keys(groupedItems).sort((a, b) => parseInt(a) - parseInt(b));
 
   return (
@@ -80,6 +81,11 @@ const ItemsPanel = () => {
             const items = groupedItems[level];
             const isCollapsed = collapsedLevels[level];
 
+            // Trier les items par nom (bien que ce soit déjà fait dans getFilteredItems)
+            const sortedItems = [...items].sort((a, b) => 
+              a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' })
+            );
+
             return (
               <div key={level} className="level-group">
                 <div className="level-header" onClick={() => toggleLevel(level)}>
@@ -89,7 +95,7 @@ const ItemsPanel = () => {
                 </div>
                 {!isCollapsed && (
                   <div className="level-items-list">
-                    {items.map(item => (
+                    {sortedItems.map(item => (
                       <div 
                         key={item.id} 
                         className={`item-list-row ${selectedItemId === item.id ? 'selected' : ''}`}
