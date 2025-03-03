@@ -1,9 +1,11 @@
 {
   "name": "touch-planner",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "description": "Calculatrice de craft avancée pour Dofus Touch avec suivi des prix du marché et organisation par métiers",
+  "author": "DaMolks",
+  "homepage": "./",
   "private": true,
   "main": "public/electron.js",
-  "homepage": "./",
   "dependencies": {
     "@electron/remote": "^2.1.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -54,6 +56,7 @@
   "build": {
     "appId": "com.damolks.touchplanner",
     "productName": "Touch Planner",
+    "copyright": "Copyright © 2025 DaMolks",
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -69,6 +72,13 @@
         "nsis"
       ],
       "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Touch Planner"
     }
   }
 }
