@@ -17,16 +17,10 @@
   align-items: center;
 }
 
-.header-left h1 {
-  margin: 0;
-  font-size: 1.3em; /* Réduire la taille du titre */
-  font-weight: 600;
-}
-
-.header-left p {
-  margin: 0 0 0 15px; /* Ajouter une marge à gauche pour séparer du titre */
-  font-size: 0.85em;
-  opacity: 0.9;
+.header-logo {
+  height: 50px; /* Hauteur du logo */
+  width: auto;
+  display: block;
 }
 
 .header-right {
@@ -41,13 +35,13 @@
     padding: 0 10px; /* Ajouter du padding sur les côtés en mode mobile */
   }
   
-  .header-left p {
-    display: none; /* Cacher la description sur mobile */
+  .header-logo {
+    height: 40px; /* Logo légèrement plus petit sur mobile */
   }
 }
 
 @media (max-width: 480px) {
-  .header-left h1 {
-    font-size: 1.1em;
+  .header-logo {
+    height: 35px; /* Encore plus petit sur très petits écrans */
   }
 }
