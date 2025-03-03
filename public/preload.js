@@ -147,5 +147,34 @@ contextBridge.exposeInMainWorld('electronAPI', {
       console.error('Erreur lors de l\'ouverture du fichier:', error);
       return null;
     }
-  }
+  },
+
+  // Fonctions pour contrôler la fenêtre 
+  minimize: () => {
+    if (remote) {
+      const window = remote.getCurrentWindow();
+      window.minimize();
+    }
+  },
+  
+  maximize: () => {
+    if (remote) {
+      const window = remote.getCurrentWindow();
+      if (window.isMaximized()) {
+        window.unmaximize();
+      } else {
+        window.maximize();
+      }
+    }
+  },
+  
+  close: () => {
+    if (remote) {
+      const window = remote.getCurrentWindow();
+      window.close();
+    }
+  },
+  
+  // Détecter si l'environnement est Electron
+  isElectron: !!remote
 });
