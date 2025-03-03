@@ -11,44 +11,61 @@
   flex-direction: column;
   overflow: hidden;
   padding: 0 20px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .main-content {
   display: flex;
   flex: 1;
   overflow: hidden;
+  width: 100%;
+  gap: 20px; /* Utiliser gap au lieu de margin pour un espacement cohérent */
 }
 
 /* Nouvelle disposition */
 .job-tabs-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* Aligner à gauche pour correspondre aux autres éléments */
   margin-bottom: 15px;
   overflow-x: auto;
   padding: 5px 0;
+  width: 100%;
 }
 
 .items-panel {
   flex: 0 0 30%; /* Fixe la largeur à 30% */
   overflow-y: auto;
-  margin-right: 20px;
 }
 
 .recipe-panel {
-  flex: 0 0 65%; /* Fixe la largeur à 65% */
+  flex: 0 0 calc(70% - 20px); /* Fixe la largeur à 70% moins l'espace de gap */
   overflow-y: auto;
 }
 
 @media (max-width: 1024px) {
   .main-content {
     flex-direction: column;
+    gap: 15px;
   }
   
   .items-panel, 
   .recipe-panel {
-    flex: 1;
+    flex: none;
     width: 100%;
     margin-right: 0;
-    margin-bottom: 20px;
+  }
+}
+
+/* Ajuster pour les très petits écrans */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px 10px;
+  }
+  
+  .main-content {
+    gap: 10px;
   }
 }
