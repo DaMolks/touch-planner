@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { usePrices } from '../contexts/PriceContext';
 import { useData } from '../contexts/DataContext';
 import { Chart, registerables } from 'chart.js';
@@ -9,15 +9,30 @@ import './PriceHistoryModal.css';
 Chart.register(...registerables);
 
 const PriceHistoryModal = ({ item, onClose }) => {
-  const { getItemPriceHistory, getAveragePrice } = usePrices();
+  const { getItemPriceHistory, getAveragePrice, deletePriceHistoryEntry } = usePrices();
   const { gameData } = useData();
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
+  const [confirmDelete, setConfirmDelete] = useState(null);
   
   // Recuperer l'historique des prix pour cet item
   const priceHistory = getItemPriceHistory(item.id);
   const averagePrice = getAveragePrice(item.id);
   const itemData = gameData.items[item.id] || {};
+  
+  // Gestion de la suppression d'une entrée
+  const handleDeleteEntry = (index) => {
+    setConfirmDelete(index);
+  };
+  
+  const confirmDeleteEntry = (index) => {
+    deletePriceHistoryEntry(item.id, index);
+    setConfirmDelete(null);
+  };
+  
+  const cancelDeleteEntry = () => {
+    setConfirmDelete(null);
+  };
   
   useEffect(() => {
     // Si pas d'historique, ne rien faire
@@ -155,20 +170,53 @@ const PriceHistoryModal = ({ item, onClose }) => {
             
             <div className="price-history-table-container">
               <h3>Detail des prix</h3>
+              <p className="delete-instructions">Cliquez sur <span className="delete-icon">🗑️</span> pour supprimer une entrée erronée.</p>
               <table className="price-history-table">
                 <thead>
                   <tr>
                     <th>Date</th>
                     <th>Prix (kamas)</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {[...priceHistory].reverse().map((entry, index) => (
-                    <tr key={index}>
-                      <td>{formatDate(entry.timestamp)}</td>
-                      <td>{entry.price.toLocaleString()}</td>
-                    </tr>
-                  ))}
+                  {[...priceHistory].reverse().map((entry, index) => {
+                    const reverseIndex = priceHistory.length - 1 - index;
+                    return (
+                      <tr key={index} className={confirmDelete === reverseIndex ? 'confirm-delete' : ''}>
+                        <td>{formatDate(entry.timestamp)}</td>
+                        <td>{entry.price.toLocaleString()}</td>
+                        <td className="action-cell">
+                          {confirmDelete === reverseIndex ? (
+                            <div className="confirm-buttons">
+                              <button 
+                                className="confirm-delete-btn"
+                                onClick={() => confirmDeleteEntry(reverseIndex)}
+                                title="Confirmer la suppression"
+                              >
+                                ✓
+                              </button>
+                              <button 
+                                className="cancel-delete-btn"
+                                onClick={cancelDeleteEntry}
+                                title="Annuler"
+                              >
+                                ✗
+                              </button>
+                            </div>
+                          ) : (
+                            <button 
+                              className="delete-entry-btn" 
+                              onClick={() => handleDeleteEntry(reverseIndex)}
+                              title="Supprimer cette entrée"
+                            >
+                              🗑️
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
