@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <circle cx="128" cy="128" r="120" fill="#4a90e2" />
+  <g transform="translate(64, 64)">
+    <!-- Calculator Outline -->
+    <rect x="10" y="10" width="110" height="120" rx="8" ry="8" fill="#ffffff" />
+    
+    <!-- Calculator Display -->
+    <rect x="20" y="20" width="90" height="30" rx="4" ry="4" fill="#ecf0f1" />
+    
+    <!-- Calculator Buttons -->
+    <rect x="20" y="60" width="20" height="20" rx="3" ry="3" fill="#e74c3c" />
+    <rect x="45" y="60" width="20" height="20" rx="3" ry="3" fill="#e74c3c" />
+    <rect x="70" y="60" width="20" height="20" rx="3" ry="3" fill="#e74c3c" />
+    <rect x="95" y="60" width="15" height="20" rx="3" ry="3" fill="#3498db" />
+    
+    <rect x="20" y="85" width="20" height="20" rx="3" ry="3" fill="#e74c3c" />
+    <rect x="45" y="85" width="20" height="20" rx="3" ry="3" fill="#e74c3c" />
+    <rect x="70" y="85" width="20" height="20" rx="3" ry="3" fill="#e74c3c" />
+    <rect x="95" y="85" width="15" height="20" rx="3" ry="3" fill="#3498db" />
+    
+    <rect x="20" y="110" width="20" height="20" rx="3" ry="3" fill="#e74c3c" />
+    <rect x="45" y="110" width="20" height="20" rx="3" ry="3" fill="#e74c3c" />
+    <rect x="70" y="110" width="20" height="20" rx="3" ry="3" fill="#e74c3c" />
+    <rect x="95" y="110" width="15" height="45" rx="3" ry="3" fill="#2ecc71" />
+    
+    <rect x="20" y="135" width="70" height="20" rx="3" ry="3" fill="#f39c12" />
+  </g>
+</svg>
