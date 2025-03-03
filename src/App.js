@@ -22,6 +22,27 @@ function App() {
     }
   }, []);
 
+  // Désactiver le double-clic pour maximiser
+  useEffect(() => {
+    const handleDoubleClick = (e) => {
+      // Empêcher le double-clic si ce n'est pas sur un élément interactif
+      if (
+        !['INPUT', 'BUTTON', 'SELECT', 'TEXTAREA', 'A'].includes(e.target.tagName) &&
+        !e.target.classList.contains('window-control-button')
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+      }
+    };
+
+    document.addEventListener('dblclick', handleDoubleClick, true);
+
+    return () => {
+      document.removeEventListener('dblclick', handleDoubleClick, true);
+    };
+  }, []);
+
   // Check if data is already loaded from localStorage
   useEffect(() => {
     const storedData = localStorage.getItem('gameData');
