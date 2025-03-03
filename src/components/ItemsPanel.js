@@ -95,13 +95,20 @@ const ItemsPanel = () => {
                         className={`item-list-row ${selectedItemId === item.id ? 'selected' : ''}`}
                         onClick={() => setSelectedItemId(item.id)}
                       >
-                        <ImageWithFallback 
-                          src={item.imgUrl} 
-                          alt={item.name} 
-                          className="item-list-image"
-                        />
-                        <span className="item-list-name">{item.name}</span>
-                        <span className="item-list-type">{item.type}</span>
+                        <div className="item-list-image">
+                          <ImageWithFallback 
+                            src={item.imgUrl} 
+                            alt={item.name}
+                          />
+                        </div>
+                        <div className="item-list-name" title={item.name}>
+                          {item.name}
+                        </div>
+                        <div className="item-list-type">
+                          <div className="item-list-type-inner" title={item.type}>
+                            {item.type}
+                          </div>
+                        </div>
                       </div>
                     ))}
                   </div>
