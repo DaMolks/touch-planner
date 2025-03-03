@@ -3,10 +3,20 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
-const remote = require('@electron/remote/main');
 
-// Initialiser le module remote
-remote.initialize();
+// S'assurer que @electron/remote est correctement importé
+let remote;
+try {
+  remote = require('@electron/remote/main');
+} catch (error) {
+  console.error('Erreur lors du chargement de @electron/remote/main:', error);
+  console.log('Vous devez installer le module avec: npm install --save @electron/remote');
+}
+
+// Initialiser le module remote seulement s'il est correctement chargé
+if (remote) {
+  remote.initialize();
+}
 
 let mainWindow;
 
@@ -27,8 +37,10 @@ function createWindow() {
     icon: path.join(__dirname, '../assets/icon.png')
   });
 
-  // Activer remote pour cette fenêtre
-  remote.enable(mainWindow.webContents);
+  // Activer remote pour cette fenêtre seulement si le module est correctement chargé
+  if (remote) {
+    remote.enable(mainWindow.webContents);
+  }
 
   // Charger l'application
   const startUrl = process.env.ELECTRON_START_URL || url.format({
@@ -45,7 +57,7 @@ function createWindow() {
   });
 
   // En développement, ouvrir les DevTools
-  if (process.env.ELECTRON_START_URL) {
+  if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools({ mode: 'detach' });
   }
 
