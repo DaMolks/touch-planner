@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReloadButton from './ReloadButton';
 import ThemeToggle from './ThemeToggle';
 import WindowControls from './WindowControls';
+import logo from '../assets/touch-planner-logo.png'; // Importation du logo
 import './Header.css';
 
 const Header = () => {
@@ -19,8 +20,7 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
           <div className="header-left">
-            <h1>Touch Planner</h1>
-            <p>Calculatrice de craft pour Dofus Touch</p>
+            <img src={logo} alt="Touch Planner" className="header-logo" />
           </div>
           <div className="header-right">
             <ReloadButton />
