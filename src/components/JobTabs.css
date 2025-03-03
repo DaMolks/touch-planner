@@ -1,12 +1,13 @@
 .job-tabs-main {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   background-color: var(--panel-bg-color);
   border-radius: 8px;
-  padding: 5px;
+  padding: 10px;
   box-shadow: var(--panel-shadow);
+  box-sizing: border-box;
 }
 
 .job-tab {
@@ -45,7 +46,7 @@
 
 @media (max-width: 480px) {
   .job-tabs-main {
-    padding: 3px;
+    padding: 5px;
   }
   
   .job-tab {
