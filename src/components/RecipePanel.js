@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useData } from '../contexts/DataContext';
 import { usePrices } from '../contexts/PriceContext';
 import PriceHistoryModal from './PriceHistoryModal';
@@ -20,10 +20,24 @@ const RecipePanel = () => {
 
   const [historyModalOpen, setHistoryModalOpen] = useState(false);
   const [currentHistoryItem, setCurrentHistoryItem] = useState(null);
+  const panelRef = useRef(null);
 
   // Recuperer l'objet et la recette selectionnes
   const selectedItem = selectedItemId ? gameData.items[selectedItemId] : null;
   const recipe = selectedItemId ? gameData.recipes[selectedItemId] : null;
+
+  // Effet pour s'assurer que le focus est libéré après le chargement d'un nouvel item
+  useEffect(() => {
+    // Libérer le focus quand l'item sélectionné change
+    if (document.activeElement && document.activeElement.tagName === 'INPUT') {
+      document.activeElement.blur();
+    }
+    
+    // Remonter au début du panneau quand un nouvel item est sélectionné
+    if (panelRef.current && selectedItemId) {
+      panelRef.current.scrollTop = 0;
+    }
+  }, [selectedItemId]);
 
   // Calculer le profit pour le lot selectionne
   const calculateLotProfit = () => {
@@ -62,6 +76,12 @@ const RecipePanel = () => {
     }
   };
 
+  // Empêcher le défilement indésirable dans les champs numériques
+  const handleWheel = (e) => {
+    // Empêcher le changement de valeur du champ sur défilement de molette
+    e.target.blur();
+  };
+
   // Afficher l'historique des prix
   const showHistory = (itemId, itemName, e) => {
     e.stopPropagation(); // Éviter de déclencher d'autres événements
@@ -72,7 +92,7 @@ const RecipePanel = () => {
   // Si aucun objet n'est selectionne, afficher un message
   if (!selectedItem || !recipe) {
     return (
-      <div className="recipe-panel panel">
+      <div className="recipe-panel panel" ref={panelRef}>
         <h2>Details de la Recette</h2>
         <div className="empty-state">
           <p>Selectionnez un objet dans la liste pour voir sa recette et calculer sa rentabilite.</p>
@@ -85,7 +105,7 @@ const RecipePanel = () => {
   const job = gameData.jobs[recipe.jobId];
 
   return (
-    <div className="recipe-panel panel">
+    <div className="recipe-panel panel" ref={panelRef}>
       <h2>Details de la Recette</h2>
       
       {/* En-tete de la recette */}
@@ -133,6 +153,7 @@ const RecipePanel = () => {
               onChange={(e) => handlePriceChange(selectedItemId, e.target.value)}
               onBlur={() => handlePriceConfirm(selectedItemId)}
               onKeyDown={(e) => handleKeyDown(e, selectedItemId)}
+              onWheel={handleWheel}
             />
             {tempPrices[selectedItemId] !== prices[selectedItemId] && (
               <button 
@@ -189,6 +210,7 @@ const RecipePanel = () => {
                       onChange={(e) => handlePriceChange(ingredient.itemId, e.target.value)}
                       onBlur={() => handlePriceConfirm(ingredient.itemId)}
                       onKeyDown={(e) => handleKeyDown(e, ingredient.itemId)}
+                      onWheel={handleWheel}
                     />
                     {tempPrices[ingredient.itemId] !== prices[ingredient.itemId] && (
                       <button 
