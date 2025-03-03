@@ -9,7 +9,9 @@ const RecipePanel = () => {
   const { gameData, selectedItemId } = useData();
   const { 
     prices, 
-    updatePrice, 
+    tempPrices,
+    updateTempPrice,
+    confirmPrice,
     getPriceIndicator, 
     calculateProfit,
     batchSize,
@@ -41,14 +43,28 @@ const RecipePanel = () => {
 
   const profitInfo = calculateLotProfit();
 
-  // Gerer le changement de prix d'un ingredient
+  // Gerer le changement de prix temporaire pendant l'édition
   const handlePriceChange = (itemId, value) => {
     const price = parseFloat(value) || 0;
-    updatePrice(itemId, price);
+    updateTempPrice(itemId, price);
+  };
+
+  // Valider le prix quand l'utilisateur quitte le champ ou appuie sur Entrée
+  const handlePriceConfirm = (itemId) => {
+    confirmPrice(itemId);
+  };
+
+  // Gérer la touche Entrée pour valider le prix
+  const handleKeyDown = (e, itemId) => {
+    if (e.key === 'Enter') {
+      confirmPrice(itemId);
+      e.target.blur(); // Enlever le focus après validation
+    }
   };
 
   // Afficher l'historique des prix
-  const showHistory = (itemId, itemName) => {
+  const showHistory = (itemId, itemName, e) => {
+    e.stopPropagation(); // Éviter de déclencher d'autres événements
     setCurrentHistoryItem({ id: itemId, name: itemName });
     setHistoryModalOpen(true);
   };
@@ -112,16 +128,28 @@ const RecipePanel = () => {
           <input 
             type="number" 
             min="0" 
-            value={prices[selectedItemId] || 0} 
+            value={tempPrices[selectedItemId] || 0} 
             onChange={(e) => handlePriceChange(selectedItemId, e.target.value)}
+            onBlur={() => handlePriceConfirm(selectedItemId)}
+            onKeyDown={(e) => handleKeyDown(e, selectedItemId)}
           />
           <span className="label-kamas">kamas</span>
+          <button 
+            className="price-validate-btn" 
+            onClick={() => handlePriceConfirm(selectedItemId)}
+            title="Valider le prix"
+          >
+            ✓
+          </button>
           <span 
             className={`price-indicator ${getPriceIndicator(selectedItemId, prices[selectedItemId] || 0)}`}
-            onClick={() => showHistory(selectedItemId, selectedItem.name)}
+            onClick={(e) => showHistory(selectedItemId, selectedItem.name, e)}
             title="Voir l'historique des prix"
           ></span>
         </div>
+        {tempPrices[selectedItemId] !== prices[selectedItemId] && (
+          <div className="price-not-saved">Prix non validé</div>
+        )}
       </div>
 
       {/* Ingredients */}
@@ -152,16 +180,28 @@ const RecipePanel = () => {
                   <input 
                     type="number" 
                     min="0" 
-                    value={prices[ingredient.itemId] || 0} 
+                    value={tempPrices[ingredient.itemId] || 0} 
                     onChange={(e) => handlePriceChange(ingredient.itemId, e.target.value)}
+                    onBlur={() => handlePriceConfirm(ingredient.itemId)}
+                    onKeyDown={(e) => handleKeyDown(e, ingredient.itemId)}
                   />
                   <span className="label-kamas">kamas</span>
+                  <button 
+                    className="price-validate-btn" 
+                    onClick={() => handlePriceConfirm(ingredient.itemId)}
+                    title="Valider le prix"
+                  >
+                    ✓
+                  </button>
                   <span 
                     className={`price-indicator ${getPriceIndicator(ingredient.itemId, prices[ingredient.itemId] || 0)}`}
-                    onClick={() => showHistory(ingredient.itemId, ingredientItem.name)}
+                    onClick={(e) => showHistory(ingredient.itemId, ingredientItem.name, e)}
                     title="Voir l'historique des prix"
                   ></span>
                 </div>
+                {tempPrices[ingredient.itemId] !== prices[ingredient.itemId] && (
+                  <div className="price-not-saved">Prix non validé</div>
+                )}
               </div>
             );
           })}
@@ -190,6 +230,11 @@ const RecipePanel = () => {
           <span>Profit pour {batchSize} item(s):</span>
           <span className="value">{profitInfo.profit.toLocaleString()} kamas ({profitInfo.profitPercent.toFixed(2)}%)</span>
         </div>
+        {Object.keys(tempPrices).some(key => tempPrices[key] !== prices[key]) && (
+          <div className="calculation-row warning-row">
+            <span>⚠️ Certains prix n'ont pas été validés, les calculs utilisent les derniers prix confirmés.</span>
+          </div>
+        )}
       </div>
 
       {/* Modal pour l'historique des prix */}
