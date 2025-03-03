@@ -4,6 +4,7 @@ import Header from './components/Header';
 import FileUploader from './components/FileUploader';
 import ItemsPanel from './components/ItemsPanel';
 import RecipePanel from './components/RecipePanel';
+import JobTabs from './components/JobTabs'; // Nouveau composant pour les onglets de métiers
 import { DataProvider } from './contexts/DataContext';
 import { PriceProvider } from './contexts/PriceContext';
 
@@ -29,10 +30,15 @@ function App() {
             )}
             
             {isDataLoaded && (
-              <div className="main-content">
-                <ItemsPanel />
-                <RecipePanel />
-              </div>
+              <>
+                <div className="job-tabs-container">
+                  <JobTabs />
+                </div>
+                <div className="main-content">
+                  <ItemsPanel />
+                  <RecipePanel />
+                </div>
+              </>
             )}
           </div>
         </div>
