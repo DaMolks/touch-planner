@@ -28,6 +28,7 @@ function createWindow() {
     },
     show: false,
     frame: true,
+    titleBarStyle: 'hidden', // Cacher la barre de titre native
     icon: path.join(__dirname, '../assets/icon.png'),
     autoHideMenuBar: true // Masquer la barre de menu par défaut
   });
