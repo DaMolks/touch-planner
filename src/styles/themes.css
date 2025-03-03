@@ -1,0 +1,178 @@
+/* Variables pour le thème clair (par défaut) */
+:root {
+  /* Couleurs principales */
+  --background-color: #f8f9fa;
+  --panel-bg-color: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #777777;
+  --border-color: #e0e0e0;
+  --highlight-color: #4a90e2;
+  
+  /* Couleurs d'accent */
+  --accent-primary: #4a90e2;
+  --accent-secondary: #4CAF50;
+  --accent-danger: #f44336;
+  --accent-warning: #ff9800;
+  
+  /* Couleurs de composants spécifiques */
+  --header-bg: #3e64b2;
+  --header-text: #ffffff;
+  --panel-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --input-bg: #ffffff;
+  --input-border: #dddddd;
+  --button-bg: #4a90e2;
+  --button-text: #ffffff;
+  
+  /* Composants interactifs */
+  --hover-bg: #f5f5f5;
+  --active-bg: #e8f1fd;
+  --success-color: #4caf50;
+  --error-color: #f44336;
+  
+  /* Transitions */
+  --transition-speed: 0.3s;
+}
+
+/* Variables pour le thème sombre */
+.dark-theme {
+  /* Couleurs principales */
+  --background-color: #212529;
+  --panel-bg-color: #2d3136;
+  --text-color: #e9ecef;
+  --text-secondary: #adb5bd;
+  --border-color: #495057;
+  --highlight-color: #64a1e9;
+  
+  /* Couleurs d'accent */
+  --accent-primary: #5c9ce6;
+  --accent-secondary: #66bb6a;
+  --accent-danger: #f45f54;
+  --accent-warning: #ffb74d;
+  
+  /* Couleurs de composants spécifiques */
+  --header-bg: #2c4580;
+  --header-text: #ffffff;
+  --panel-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --input-bg: #343a40;
+  --input-border: #495057;
+  --button-bg: #5c9ce6;
+  --button-text: #ffffff;
+  
+  /* Composants interactifs */
+  --hover-bg: #343a40;
+  --active-bg: #39414a;
+  --success-color: #66bb6a;
+  --error-color: #f45f54;
+}
+
+/* Application des variables à l'interface */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* Panel général */
+.panel {
+  background-color: var(--panel-bg-color);
+  box-shadow: var(--panel-shadow);
+  border: 1px solid var(--border-color);
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+/* Styles pour les en-têtes */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color);
+  transition: color var(--transition-speed);
+}
+
+/* Liens */
+a {
+  color: var(--accent-primary);
+  transition: color var(--transition-speed);
+}
+
+a:hover {
+  color: var(--highlight-color);
+}
+
+/* Inputs */
+input, select, textarea {
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-color);
+  transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--highlight-color);
+  outline: none;
+}
+
+/* Buttons */
+button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+button:hover {
+  background-color: var(--highlight-color);
+}
+
+/* Styles pour les tableaux */
+table {
+  border-color: var(--border-color);
+  transition: border-color var(--transition-speed);
+}
+
+th {
+  background-color: var(--hover-bg);
+  color: var(--text-color);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+td {
+  border-color: var(--border-color);
+  transition: border-color var(--transition-speed);
+}
+
+tr:hover {
+  background-color: var(--hover-bg);
+  transition: background-color var(--transition-speed);
+}
+
+/* Icone de bascule thème */
+.theme-toggle {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: rotate(30deg);
+}
+
+/* Sélection de texte */
+::selection {
+  background-color: var(--accent-primary);
+  color: white;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
