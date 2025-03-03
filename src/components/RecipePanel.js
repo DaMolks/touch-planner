@@ -125,22 +125,26 @@ const RecipePanel = () => {
       <div className="selling-price-container">
         <h3>Prix de vente unitaire:</h3>
         <div className="price-input">
-          <input 
-            type="number" 
-            min="0" 
-            value={tempPrices[selectedItemId] || 0} 
-            onChange={(e) => handlePriceChange(selectedItemId, e.target.value)}
-            onBlur={() => handlePriceConfirm(selectedItemId)}
-            onKeyDown={(e) => handleKeyDown(e, selectedItemId)}
-          />
+          <div className="price-input-wrapper">
+            <input 
+              type="number" 
+              min="0" 
+              value={tempPrices[selectedItemId] || 0} 
+              onChange={(e) => handlePriceChange(selectedItemId, e.target.value)}
+              onBlur={() => handlePriceConfirm(selectedItemId)}
+              onKeyDown={(e) => handleKeyDown(e, selectedItemId)}
+            />
+            {tempPrices[selectedItemId] !== prices[selectedItemId] && (
+              <button 
+                className="price-validate-btn" 
+                onClick={() => handlePriceConfirm(selectedItemId)}
+                title="Valider le prix"
+              >
+                ✓
+              </button>
+            )}
+          </div>
           <span className="label-kamas">kamas</span>
-          <button 
-            className="price-validate-btn" 
-            onClick={() => handlePriceConfirm(selectedItemId)}
-            title="Valider le prix"
-          >
-            ✓
-          </button>
           <span 
             className={`price-indicator ${getPriceIndicator(selectedItemId, prices[selectedItemId] || 0)}`}
             onClick={(e) => showHistory(selectedItemId, selectedItem.name, e)}
@@ -177,22 +181,26 @@ const RecipePanel = () => {
                 </div>
                 <div className="price-input">
                   <label>Prix unitaire:</label>
-                  <input 
-                    type="number" 
-                    min="0" 
-                    value={tempPrices[ingredient.itemId] || 0} 
-                    onChange={(e) => handlePriceChange(ingredient.itemId, e.target.value)}
-                    onBlur={() => handlePriceConfirm(ingredient.itemId)}
-                    onKeyDown={(e) => handleKeyDown(e, ingredient.itemId)}
-                  />
+                  <div className="price-input-wrapper">
+                    <input 
+                      type="number" 
+                      min="0" 
+                      value={tempPrices[ingredient.itemId] || 0} 
+                      onChange={(e) => handlePriceChange(ingredient.itemId, e.target.value)}
+                      onBlur={() => handlePriceConfirm(ingredient.itemId)}
+                      onKeyDown={(e) => handleKeyDown(e, ingredient.itemId)}
+                    />
+                    {tempPrices[ingredient.itemId] !== prices[ingredient.itemId] && (
+                      <button 
+                        className="price-validate-btn" 
+                        onClick={() => handlePriceConfirm(ingredient.itemId)}
+                        title="Valider le prix"
+                      >
+                        ✓
+                      </button>
+                    )}
+                  </div>
                   <span className="label-kamas">kamas</span>
-                  <button 
-                    className="price-validate-btn" 
-                    onClick={() => handlePriceConfirm(ingredient.itemId)}
-                    title="Valider le prix"
-                  >
-                    ✓
-                  </button>
                   <span 
                     className={`price-indicator ${getPriceIndicator(ingredient.itemId, prices[ingredient.itemId] || 0)}`}
                     onClick={(e) => showHistory(ingredient.itemId, ingredientItem.name, e)}
