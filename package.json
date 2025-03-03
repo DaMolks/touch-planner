@@ -5,6 +5,7 @@
   "main": "public/electron.js",
   "homepage": "./",
   "dependencies": {
+    "@electron/remote": "^2.1.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -44,7 +45,6 @@
     ]
   },
   "devDependencies": {
-    "@electron/remote": "^2.1.1",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
     "electron": "^30.0.0",
@@ -58,7 +58,8 @@
       "build/**/*",
       "node_modules/**/*",
       "public/electron.js",
-      "public/preload.js"
+      "public/preload.js",
+      "public/electron-starter.js"
     ],
     "directories": {
       "buildResources": "assets"
