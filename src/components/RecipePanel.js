@@ -13,7 +13,7 @@ const RecipePanel = () => {
     updateTempPrice,
     confirmPrice,
     getPriceIndicator, 
-    calculateProfit,
+    calculateIngredientsCost,
     batchSize,
     setBatchSize
   } = usePrices();
@@ -41,16 +41,47 @@ const RecipePanel = () => {
 
   // Calculer le profit pour le lot selectionne
   const calculateLotProfit = () => {
-    if (!selectedItemId) return { profit: 0, profitPercent: 0, tax: 0, cost: 0, netSellingPrice: 0 };
+    if (!selectedItemId || !recipe) {
+      return { 
+        profit: 0, 
+        profitPercent: 0, 
+        tax: 0, 
+        cost: 0, 
+        totalSellingPrice: 0, 
+        netSellingPrice: 0 
+      };
+    }
 
-    const sellingPrice = (prices[selectedItemId] || 0) * batchSize;
-    const { profit, profitPercent, tax, cost, netSellingPrice } = calculateProfit(selectedItemId, sellingPrice);
+    // Prix de vente unitaire
+    const unitPrice = prices[selectedItemId] || 0;
+    
+    // Prix de vente total pour le lot
+    const totalSellingPrice = unitPrice * batchSize;
+    
+    // Taxe de vente (3%)
+    const tax = Math.round(totalSellingPrice * 0.03);
+    
+    // Prix net après taxe
+    const netSellingPrice = totalSellingPrice - tax;
+    
+    // Coût des ingrédients unitaire
+    const unitCost = calculateIngredientsCost(recipe);
+    
+    // Coût total pour le lot
+    const cost = unitCost * batchSize;
+    
+    // Profit pour le lot
+    const profit = netSellingPrice - cost;
+    
+    // Pourcentage de profit
+    const profitPercent = cost > 0 ? (profit / cost) * 100 : 0;
 
     return {
       profit,
       profitPercent,
       tax,
-      cost: cost * batchSize,
+      cost,
+      totalSellingPrice,
       netSellingPrice
     };
   };
@@ -246,7 +277,7 @@ const RecipePanel = () => {
         </div>
         <div className="calculation-row">
           <span>Prix de vente total:</span>
-          <span className="value">{(prices[selectedItemId] * batchSize || 0).toLocaleString()} kamas</span>
+          <span className="value">{profitInfo.totalSellingPrice.toLocaleString()} kamas</span>
         </div>
         <div className="calculation-row tax-row">
           <span>Taxe de vente (3%):</span>
