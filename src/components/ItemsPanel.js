@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useData } from '../contexts/DataContext';
 import ImageWithFallback from './ImageWithFallback';
 import './ItemsPanel.css';
@@ -6,6 +6,7 @@ import './ItemsPanel.css';
 const ItemsPanel = () => {
   const { 
     loading, 
+    activeJobId,
     activeCategory, 
     setActiveCategory, 
     searchTerm, 
@@ -17,6 +18,14 @@ const ItemsPanel = () => {
   } = useData();
 
   const [collapsedLevels, setCollapsedLevels] = useState({});
+  
+  // Réinitialiser la catégorie active si elle n'existe plus après un changement de métier
+  useEffect(() => {
+    const categories = getCategories();
+    if (activeCategory !== 'all' && !categories.includes(activeCategory)) {
+      setActiveCategory('all');
+    }
+  }, [activeJobId, getCategories, activeCategory, setActiveCategory]);
 
   // Gerer l'etat ouvert/ferme des niveaux
   const toggleLevel = (level) => {
@@ -63,7 +72,7 @@ const ItemsPanel = () => {
       </div>
 
       {/* Liste des objets */}
-      <div className="items-list">
+      <div className="items-list-container">
         {levels.length === 0 ? (
           <div className="no-items-message">Aucun objet ne correspond à votre recherche.</div>
         ) : (
@@ -79,19 +88,20 @@ const ItemsPanel = () => {
                   <span className="collapse-icon">{isCollapsed ? '+' : '-'}</span>
                 </div>
                 {!isCollapsed && (
-                  <div className="level-items">
+                  <div className="level-items-list">
                     {items.map(item => (
                       <div 
                         key={item.id} 
-                        className={`item ${selectedItemId === item.id ? 'selected' : ''}`}
+                        className={`item-list-row ${selectedItemId === item.id ? 'selected' : ''}`}
                         onClick={() => setSelectedItemId(item.id)}
                       >
                         <ImageWithFallback 
                           src={item.imgUrl} 
                           alt={item.name} 
-                          className="item-image"
+                          className="item-list-image"
                         />
-                        <span className="item-name">{item.name}</span>
+                        <span className="item-list-name">{item.name}</span>
+                        <span className="item-list-type">{item.type}</span>
                       </div>
                     ))}
                   </div>
