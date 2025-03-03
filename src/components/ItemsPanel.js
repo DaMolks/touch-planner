@@ -6,8 +6,6 @@ import './ItemsPanel.css';
 const ItemsPanel = () => {
   const { 
     loading, 
-    activeJobId, 
-    setActiveJobId, 
     activeCategory, 
     setActiveCategory, 
     searchTerm, 
@@ -15,7 +13,6 @@ const ItemsPanel = () => {
     selectedItemId, 
     setSelectedItemId,
     getCategories,
-    getJobs,
     getFilteredItems
   } = useData();
 
@@ -30,11 +27,10 @@ const ItemsPanel = () => {
   };
 
   if (loading) {
-    return <div className="items-panel panel loading">Chargement des donnees...</div>;
+    return <div className="items-panel panel loading">Chargement des données...</div>;
   }
 
   const categories = getCategories();
-  const jobs = getJobs();
   const groupedItems = getFilteredItems();
   const levels = Object.keys(groupedItems).sort((a, b) => parseInt(a) - parseInt(b));
 
@@ -42,20 +38,7 @@ const ItemsPanel = () => {
     <div className="items-panel panel">
       <h2>Objets</h2>
 
-      {/* Onglets des metiers */}
-      <div className="job-tabs">
-        {jobs.map(job => (
-          <div 
-            key={job.id} 
-            className={`job-tab ${activeJobId === job.id ? 'active' : ''}`}
-            onClick={() => setActiveJobId(job.id)}
-          >
-            {job.name}
-          </div>
-        ))}
-      </div>
-
-      {/* Filtres de categories */}
+      {/* Filtres de catégories */}
       <div className="category-filters">
         {categories.map(category => (
           <div 
@@ -82,7 +65,7 @@ const ItemsPanel = () => {
       {/* Liste des objets */}
       <div className="items-list">
         {levels.length === 0 ? (
-          <div className="no-items-message">Aucun objet ne correspond a votre recherche.</div>
+          <div className="no-items-message">Aucun objet ne correspond à votre recherche.</div>
         ) : (
           levels.map(level => {
             const items = groupedItems[level];
