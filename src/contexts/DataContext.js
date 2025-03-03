@@ -62,14 +62,19 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  // Recuperer les categories uniques a partir des donnees
+  // Recuperer les categories uniques en fonction du metier actif
   const getCategories = () => {
     const categories = new Set();
     categories.add('all');
 
+    // Filtrer les items par métier actif si ce n'est pas 'all'
     Object.values(gameData.items).forEach(item => {
-      if (item.type && typeof item.type === 'string') {
-        categories.add(item.type.toLowerCase());
+      // Vérifier si l'item a une recette et correspond au métier actif
+      const recipe = gameData.recipes[item.id];
+      if (recipe && (activeJobId === 'all' || recipe.jobId == activeJobId)) {
+        if (item.type && typeof item.type === 'string') {
+          categories.add(item.type.toLowerCase());
+        }
       }
     });
 
