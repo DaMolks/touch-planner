@@ -11,6 +11,7 @@ Une calculatrice de craft avancée pour Dofus Touch avec suivi des prix du march
 - **Calcul par lots** : Simulez des crafts de 1, 10, 100 ou 1000 items
 - **Stockage local** : Les prix sont sauvegardés dans votre navigateur
 - **Mise à jour des données** : Possibilité de recharger le fichier JSON si de nouvelles données sont disponibles
+- **Application desktop** : Disponible en version desktop avec interface native
 
 ## Installation
 
@@ -27,12 +28,20 @@ npm install
 
 3. Lancez l'application en développement :
 ```bash
+# Version web
 npm start
+
+# Version desktop
+npm run electron-dev
 ```
 
 4. Pour construire la version de production :
 ```bash
+# Version web
 npm run build
+
+# Version desktop Windows (exécutable .exe)
+npm run electron-pack
 ```
 
 ## Utilisation
@@ -65,6 +74,32 @@ npm run build
    - 🔴 Élevé (supérieur à 110% de la moyenne)
 2. Cliquez sur ces indicateurs pour voir l'historique des prix
 3. Les prix sont automatiquement ajoutés à l'historique à chaque modification
+
+## Version Desktop
+
+L'application est disponible en version desktop avec interface native Windows, comprenant les boutons standard (agrandir, réduire, fermer).
+
+### Configuration requise
+
+- Windows 7 ou supérieur
+- 100 Mo d'espace disque
+
+### Installation de la version desktop
+
+1. Téléchargez le dernier installateur depuis la section [Releases](https://github.com/DaMolks/touch-planner/releases)
+2. Exécutez l'installateur et suivez les instructions
+3. L'application sera installée et un raccourci sera créé sur votre bureau
+
+### Compiler l'exécutable
+
+Pour créer l'installateur Windows :
+
+```bash
+# Assurez-vous d'avoir une icône icon.ico dans le dossier assets
+npm run electron-pack
+```
+
+L'installateur sera généré dans le dossier `dist`.
 
 ## Structure des données
 
@@ -110,6 +145,7 @@ Pour générer le fichier JSON des données, utilisez notre [script de scraping 
 - React.js pour l'interface utilisateur
 - Chart.js pour les graphiques d'historique des prix
 - LocalStorage pour la persistance des données
+- Electron pour la version desktop
 
 ## Contribution
 
