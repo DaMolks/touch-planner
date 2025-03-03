@@ -1,0 +1,63 @@
+/* Styles pour compenser l'absence de la barre de titre native */
+.app {
+  padding-top: env(titlebar-area-height, 0);
+}
+
+.app.windows {
+  /* Créer une zone draggable dans le header pour déplacer la fenêtre */
+  -webkit-app-region: drag;
+}
+
+/* Les éléments interactifs ne doivent pas être draggable */
+.header-right button,
+.header-left button,
+input,
+select,
+a,
+.theme-toggle-button,
+.job-tab,
+.category-filter,
+.item-list-row,
+.level-header {
+  -webkit-app-region: no-drag;
+}
+
+/* Si besoin de boutons de fenêtre personnalisés */
+.window-controls {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+}
+
+.window-control-button {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--header-text);
+  opacity: 0.8;
+  transition: opacity 0.2s, background-color 0.2s;
+  -webkit-app-region: no-drag;
+}
+
+.window-control-button:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.window-control-button.close:hover {
+  background-color: rgba(232, 17, 35, 0.9);
+}
+
+/* Icônes pour les boutons de contrôle */
+.window-control-button svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+}
