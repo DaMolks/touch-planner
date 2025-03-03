@@ -3,27 +3,21 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const path = require('path');
 const url = require('url');
+const remote = require('@electron/remote/main');
 
-// S'assurer que @electron/remote est correctement importé
-let remote;
-try {
-  remote = require('@electron/remote/main');
-} catch (error) {
-  console.error('Erreur lors du chargement de @electron/remote/main:', error);
-  console.log('Vous devez installer le module avec: npm install --save @electron/remote');
-}
-
-// Initialiser le module remote seulement s'il est correctement chargé
-if (remote) {
-  remote.initialize();
-}
+// Initialiser le module remote
+remote.initialize();
 
 let mainWindow;
 
 function createWindow() {
+  // Récupérer les dimensions de l'écran principal
+  const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize;
+  
+  // Créer la fenêtre avec une taille maximisée (mais pas plein écran)
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: Math.round(width * 0.9),
+    height: Math.round(height * 0.9),
     minWidth: 800,
     minHeight: 600,
     webPreferences: {
@@ -34,13 +28,12 @@ function createWindow() {
     },
     show: false,
     frame: true,
-    icon: path.join(__dirname, '../assets/icon.png')
+    icon: path.join(__dirname, '../assets/icon.png'),
+    autoHideMenuBar: true // Masquer la barre de menu par défaut
   });
 
-  // Activer remote pour cette fenêtre seulement si le module est correctement chargé
-  if (remote) {
-    remote.enable(mainWindow.webContents);
-  }
+  // Activer remote pour cette fenêtre
+  remote.enable(mainWindow.webContents);
 
   // Charger l'application
   const startUrl = process.env.ELECTRON_START_URL || url.format({
@@ -51,9 +44,10 @@ function createWindow() {
   
   mainWindow.loadURL(startUrl);
 
-  // Afficher la fenêtre une fois chargée
+  // Afficher la fenêtre une fois chargée et la maximiser
   mainWindow.once('ready-to-show', () => {
     mainWindow.show();
+    mainWindow.maximize(); // Maximiser la fenêtre au démarrage
   });
 
   // En développement, ouvrir les DevTools
