@@ -8,7 +8,7 @@
   flex-direction: column;
   height: 100%;
   box-sizing: border-box;
-  width: 100%; /* Assure que le panneau occupe toute la largeur disponible */
+  width: 100%;
 }
 
 .items-panel h2 {
@@ -77,7 +77,8 @@
   flex: 1;
   overflow-y: auto;
   padding-right: 5px;
-  width: 100%; /* S'assure que le conteneur prend toute la largeur */
+  width: 100%;
+  table-layout: fixed; /* Utilise la mise en page de tableau fixe */
 }
 
 .level-group {
@@ -85,7 +86,7 @@
   border: 1px solid #eee;
   border-radius: 6px;
   overflow: hidden;
-  width: 100%; /* S'assure que chaque groupe prend toute la largeur */
+  width: 100%;
 }
 
 .level-header {
@@ -96,7 +97,6 @@
   background-color: #f9f9f9;
   cursor: pointer;
   font-weight: 500;
-  width: 100%; /* Assure que l'en-tête prend toute la largeur */
   box-sizing: border-box;
 }
 
@@ -119,26 +119,19 @@
   font-size: 1.2em;
 }
 
-/* Format de liste au lieu de grille */
+/* Format de liste avec table layout pour largeurs fixes */
 .level-items-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%; /* S'assure que la liste prend toute la largeur */
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* Force des colonnes de largeur fixe */
+  border-collapse: collapse;
 }
 
 .item-list-row {
-  display: flex;
-  align-items: center;
-  padding: 8px 12px;
-  border-bottom: 1px solid #f0f0f0;
+  display: table-row;
+  width: 100%;
   cursor: pointer;
   transition: all 0.2s;
-  width: 100%; /* Assure que chaque ligne prend toute la largeur */
-  box-sizing: border-box;
-}
-
-.item-list-row:last-child {
-  border-bottom: none;
 }
 
 .item-list-row:hover {
@@ -151,35 +144,52 @@
 }
 
 .item-list-image {
+  display: table-cell;
+  vertical-align: middle;
+  width: 50px; /* Largeur fixe */
+  padding: 8px;
+  text-align: center;
+}
+
+.item-list-image img {
   width: 32px;
   height: 32px;
   object-fit: contain;
-  margin-right: 12px;
-  flex-shrink: 0; /* Empêche l'image de rétrécir */
+  vertical-align: middle;
 }
 
 .item-list-name {
-  flex: 1;
+  display: table-cell;
+  vertical-align: middle;
+  width: 65%; /* Largeur fixe */
+  padding: 8px;
   font-weight: 500;
   color: #333;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-right: 10px; /* Espace pour éviter que le texte ne touche le bord */
-  min-width: 0; /* Nécessaire pour que text-overflow fonctionne avec flexbox */
 }
 
 .item-list-type {
+  display: table-cell;
+  vertical-align: middle;
+  width: 35%; /* Largeur fixe */
+  padding: 8px;
   color: #777;
   font-size: 0.85em;
-  margin-left: 10px;
   text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: right;
+}
+
+.item-list-type-inner {
+  display: inline-block;
   background-color: #f0f0f0;
   padding: 2px 8px;
   border-radius: 10px;
-  flex-shrink: 0; /* Empêche le type de rétrécir */
-  width: 70px; /* Largeur fixe pour le type */
-  text-align: center;
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -195,7 +205,11 @@
 /* Media queries pour la responsivité */
 @media (max-width: 768px) {
   .item-list-type {
-    display: none;
+    width: 30%;
+  }
+  
+  .item-list-name {
+    width: 70%;
   }
 }
 
@@ -203,5 +217,13 @@
   .category-filter {
     padding: 4px 8px;
     font-size: 0.8em;
+  }
+  
+  .item-list-type {
+    display: none;
+  }
+  
+  .item-list-name {
+    width: 80%;
   }
 }
