@@ -85,6 +85,46 @@ export const PriceProvider = ({ children }) => {
     localStorage.setItem('priceHistory', JSON.stringify(newHistory));
   };
 
+  // Supprimer une entrée spécifique de l'historique des prix
+  const deletePriceHistoryEntry = (itemId, index) => {
+    const newHistory = { ...priceHistory };
+    
+    if (newHistory[itemId] && newHistory[itemId].length > index) {
+      // Supprimer l'entrée à l'index spécifié
+      newHistory[itemId] = [
+        ...newHistory[itemId].slice(0, index),
+        ...newHistory[itemId].slice(index + 1)
+      ];
+      
+      // Si c'était la dernière entrée et que le prix actuel correspond à cette entrée,
+      // mettre à jour le prix actuel avec la dernière entrée restante ou 0
+      if (newHistory[itemId].length > 0) {
+        const lastEntry = newHistory[itemId][newHistory[itemId].length - 1];
+        // Ne mettre à jour le prix actuel que s'il correspondait à l'entrée supprimée
+        if (prices[itemId] === priceHistory[itemId][index].price) {
+          const newPrices = { ...prices, [itemId]: lastEntry.price };
+          setPrices(newPrices);
+          setTempPrices(prev => ({ ...prev, [itemId]: lastEntry.price }));
+          localStorage.setItem('prices', JSON.stringify(newPrices));
+        }
+      } else {
+        // S'il n'y a plus d'entrées, réinitialiser le prix à 0
+        const newPrices = { ...prices, [itemId]: 0 };
+        setPrices(newPrices);
+        setTempPrices(prev => ({ ...prev, [itemId]: 0 }));
+        localStorage.setItem('prices', JSON.stringify(newPrices));
+      }
+      
+      // Sauvegarder l'historique mis à jour
+      setPriceHistory(newHistory);
+      localStorage.setItem('priceHistory', JSON.stringify(newHistory));
+      
+      return true;
+    }
+    
+    return false;
+  };
+
   // Obtenir la moyenne des prix pour un item
   const getAveragePrice = (itemId) => {
     const history = priceHistory[itemId];
@@ -158,6 +198,7 @@ export const PriceProvider = ({ children }) => {
     getAveragePrice,
     getPriceIndicator,
     getItemPriceHistory,
+    deletePriceHistoryEntry,
     calculateIngredientsCost,
     calculateProfit,
     batchSize,
