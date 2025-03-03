@@ -12,6 +12,7 @@ export const usePrices = () => useContext(PriceContext);
 // Fournisseur du contexte
 export const PriceProvider = ({ children }) => {
   const [prices, setPrices] = useState({});
+  const [tempPrices, setTempPrices] = useState({}); // Valeurs temporaires pendant l'édition
   const [priceHistory, setPriceHistory] = useState({});
   const [batchSize, setBatchSize] = useState(1);
   
@@ -21,7 +22,9 @@ export const PriceProvider = ({ children }) => {
       try {
         const savedPrices = localStorage.getItem('prices');
         if (savedPrices) {
-          setPrices(JSON.parse(savedPrices));
+          const parsedPrices = JSON.parse(savedPrices);
+          setPrices(parsedPrices);
+          setTempPrices(parsedPrices); // Initialiser les valeurs temporaires
         }
 
         const savedHistory = localStorage.getItem('priceHistory');
@@ -36,19 +39,29 @@ export const PriceProvider = ({ children }) => {
     loadPrices();
   }, []);
 
-  // Mettre a jour le prix d'un item
-  const updatePrice = (itemId, price) => {
+  // Mettre à jour temporairement le prix pendant l'édition
+  const updateTempPrice = (itemId, price) => {
     const numericPrice = typeof price === 'string' ? parseFloat(price) : price;
-    const newPrices = { ...prices, [itemId]: numericPrice };
-    setPrices(newPrices);
-    localStorage.setItem('prices', JSON.stringify(newPrices));
+    setTempPrices(prev => ({ ...prev, [itemId]: numericPrice }));
+  };
 
-    // Ajouter a l'historique des prix
-    addPriceHistory(itemId, numericPrice);
+  // Valider et sauvegarder le prix définitif
+  const confirmPrice = (itemId) => {
+    const price = tempPrices[itemId];
+    if (price !== prices[itemId]) { // Ne valider que si le prix a changé
+      const newPrices = { ...prices, [itemId]: price };
+      setPrices(newPrices);
+      localStorage.setItem('prices', JSON.stringify(newPrices));
+      
+      // Ajouter à l'historique des prix
+      addPriceHistory(itemId, price);
+    }
   };
 
   // Ajouter un prix a l'historique
   const addPriceHistory = (itemId, price) => {
+    if (price === undefined || isNaN(price)) return; // Protection contre les valeurs invalides
+    
     const now = new Date();
     const newHistory = { ...priceHistory };
 
@@ -138,7 +151,9 @@ export const PriceProvider = ({ children }) => {
 
   const value = {
     prices,
-    updatePrice,
+    tempPrices,
+    updateTempPrice,
+    confirmPrice,
     priceHistory,
     getAveragePrice,
     getPriceIndicator,
