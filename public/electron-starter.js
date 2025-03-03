@@ -36,6 +36,28 @@ function createWindow() {
   // Activer remote pour cette fenêtre
   remote.enable(mainWindow.webContents);
 
+  // Désactiver le double-clic pour maximiser la fenêtre
+  mainWindow.setWindowButtonVisibility(false);
+  
+  // Empêcher le double-clic sur la barre de titre pour maximiser
+  mainWindow.on('maximize', () => {
+    // Nous conservons la fonctionnalité via le bouton dédié
+  });
+  
+  // Empêcher le comportement par défaut de double-clic pour maximiser
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.executeJavaScript(`
+      document.addEventListener('dblclick', (e) => {
+        // Empêcher le comportement par défaut uniquement si le double-clic n'est pas sur un élément interactif
+        if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'SELECT') {
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+      }, true);
+    `);
+  });
+
   // Charger l'application
   const startUrl = process.env.ELECTRON_START_URL || url.format({
     pathname: path.join(__dirname, '../build/index.html'),
