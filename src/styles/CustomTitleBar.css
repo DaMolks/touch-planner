@@ -3,22 +3,9 @@
   padding-top: env(titlebar-area-height, 0);
 }
 
-.app.windows {
-  /* Créer une zone draggable dans le header pour déplacer la fenêtre */
+.app.windows .header {
+  /* Créer une zone draggable uniquement dans le header pour déplacer la fenêtre */
   -webkit-app-region: drag;
-}
-
-/* Empêcher l'action de double-clic pour agrandir/réduire sur l'ensemble de l'application */
-.app * {
-  /* Désactiver le comportement par défaut de double-clic pour maximiser */
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-/* Réactiver la sélection de texte pour les éléments spécifiques */
-input, textarea, .search-box, p, h1, h2, h3, h4, h5, h6, span, div.calculation-row, div.ingredient-name {
-  -webkit-user-select: text;
-  user-select: text;
 }
 
 /* Les éléments interactifs ne doivent pas être draggable */
