@@ -78,7 +78,14 @@ export const DataProvider = ({ children }) => {
       }
     });
 
-    return Array.from(categories);
+    // Convertir et trier les catégories par ordre alphabétique
+    return Array.from(categories).sort((a, b) => {
+      // Garder "all" toujours en premier
+      if (a === 'all') return -1;
+      if (b === 'all') return 1;
+      // Trier le reste alphabétiquement
+      return a.localeCompare(b, 'fr', { sensitivity: 'base' });
+    });
   };
 
   // Recuperer les metiers utilises dans les recettes
@@ -94,14 +101,18 @@ export const DataProvider = ({ children }) => {
     });
 
     // Ajouter les metiers avec leurs noms
+    const sortedJobs = [];
     jobsUsed.forEach(jobId => {
       const job = gameData.jobs[jobId];
       if (job) {
-        jobs.push({ id: jobId, name: job.name });
+        sortedJobs.push({ id: jobId, name: job.name });
       }
     });
 
-    return jobs;
+    // Trier les métiers par ordre alphabétique (sauf "Tous" qui reste en premier)
+    sortedJobs.sort((a, b) => a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' }));
+    
+    return [...jobs, ...sortedJobs];
   };
 
   // Obtenir les items filtres et tries
@@ -137,8 +148,10 @@ export const DataProvider = ({ children }) => {
 
     // Trier par niveau puis par nom
     filteredItems.sort((a, b) => {
+      // Trier d'abord par niveau
       if (a.level !== b.level) return a.level - b.level;
-      return a.name.localeCompare(b.name);
+      // Puis par ordre alphabétique du nom
+      return a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' });
     });
 
     // Grouper par niveau
