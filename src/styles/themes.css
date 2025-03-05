@@ -1,33 +1,33 @@
 /* Variables pour le thème clair (par défaut) */
 :root {
   /* Couleurs principales */
-  --background-color: #f8f9fa;
-  --panel-bg-color: #ffffff;
-  --text-color: #333333;
-  --text-secondary: #777777;
-  --border-color: #e0e0e0;
-  --highlight-color: #4a90e2;
+  --background-color: #eee9d9; /* Beige clair rappelant le parchemin */
+  --panel-bg-color: #fffaec; /* Blanc cassé pour les panneaux */
+  --text-color: #47321c; /* Brun foncé pour le texte */
+  --text-secondary: #7b613f; /* Brun moyen pour le texte secondaire */
+  --border-color: #d1b88c; /* Brun doré clair pour les bordures */
+  --highlight-color: #e3a839; /* Doré Dofus pour les éléments importants */
   
   /* Couleurs d'accent */
-  --accent-primary: #4a90e2;
-  --accent-secondary: #4CAF50;
-  --accent-danger: #f44336;
-  --accent-warning: #ff9800;
+  --accent-primary: #de9113; /* Orange doré Dofus */
+  --accent-secondary: #69a158; /* Vert Dofus pour les éléments positifs */
+  --accent-danger: #c13434; /* Rouge Dofus pour les alertes */
+  --accent-warning: #e39425; /* Orange pour les avertissements */
   
   /* Couleurs de composants spécifiques */
-  --header-bg: #3e64b2;
-  --header-text: #ffffff;
-  --panel-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --header-bg: #302922; /* Marron foncé pour l'en-tête */
+  --header-text: #f9f3e1; /* Beige clair pour le texte du header */
+  --panel-shadow: 0 2px 10px rgba(107, 87, 53, 0.15); /* Ombre plus douce et ambrée */
   --input-bg: #ffffff;
-  --input-border: #dddddd;
-  --button-bg: #4a90e2;
+  --input-border: #d1b88c; /* Même que border-color */
+  --button-bg: #de9113; /* Même que accent-primary */
   --button-text: #ffffff;
   
   /* Composants interactifs */
-  --hover-bg: #f5f5f5;
-  --active-bg: #e8f1fd;
-  --success-color: #4caf50;
-  --error-color: #f44336;
+  --hover-bg: #f3e9cf; /* Beige plus accentué pour le survol */
+  --active-bg: #f8eecc; /* Beige encore plus accentué pour l'élément actif */
+  --success-color: #69a158; /* Vert Dofus */
+  --error-color: #c13434; /* Rouge Dofus */
   
   /* Transitions */
   --transition-speed: 0.3s;
@@ -36,33 +36,33 @@
 /* Variables pour le thème sombre */
 .dark-theme {
   /* Couleurs principales */
-  --background-color: #212529;
-  --panel-bg-color: #2d3136;
-  --text-color: #e9ecef;
-  --text-secondary: #adb5bd;
-  --border-color: #495057;
-  --highlight-color: #64a1e9;
+  --background-color: #252019; /* Marron très foncé */
+  --panel-bg-color: #302922; /* Marron foncé pour les panneaux */
+  --text-color: #ead9bc; /* Beige clair pour le texte */
+  --text-secondary: #bda378; /* Beige doré pour le texte secondaire */
+  --border-color: #5e4b35; /* Brun moyen pour les bordures */
+  --highlight-color: #e3a839; /* Doré Dofus pour les éléments importants */
   
   /* Couleurs d'accent */
-  --accent-primary: #5c9ce6;
-  --accent-secondary: #66bb6a;
-  --accent-danger: #f45f54;
-  --accent-warning: #ffb74d;
+  --accent-primary: #e3a839; /* Doré plus brillant en mode sombre */
+  --accent-secondary: #78b569; /* Vert Dofus légèrement plus clair */
+  --accent-danger: #d95252; /* Rouge Dofus plus vif */
+  --accent-warning: #e6a23c; /* Orange plus vif */
   
   /* Couleurs de composants spécifiques */
-  --header-bg: #2c4580;
-  --header-text: #ffffff;
+  --header-bg: #1a1711; /* Presque noir avec nuance brune */
+  --header-text: #f9f3e1; /* Beige clair pour le texte du header */
   --panel-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  --input-bg: #343a40;
-  --input-border: #495057;
-  --button-bg: #5c9ce6;
-  --button-text: #ffffff;
+  --input-bg: #3c3328; /* Marron un peu plus clair pour les inputs */
+  --input-border: #5e4b35; /* Même que border-color */
+  --button-bg: #e3a839; /* Même que accent-primary */
+  --button-text: #1a1711; /* Texte foncé sur bouton doré */
   
   /* Composants interactifs */
-  --hover-bg: #343a40;
-  --active-bg: #39414a;
-  --success-color: #66bb6a;
-  --error-color: #f45f54;
+  --hover-bg: #3c3328; /* Brun un peu plus clair pour le survol */
+  --active-bg: #4a3f30; /* Brun encore plus clair pour l'élément actif */
+  --success-color: #78b569; /* Vert un peu plus clair */
+  --error-color: #d95252; /* Rouge un peu plus clair */
 }
 
 /* Application des variables à l'interface */
