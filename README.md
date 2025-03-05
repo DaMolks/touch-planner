@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/DaMolks/touch-planner/main/assets/icon.png" alt="Touch Planner Logo" width="150"/>
+<img src="https://raw.githubusercontent.com/DaMolks/touch-planner/main/assets/icon.png" alt="Touch Planner Logo" width="200"/>
 
 *Une calculatrice de craft avancée pour Dofus Touch avec suivi des prix du marché et organisation par métiers*
 
