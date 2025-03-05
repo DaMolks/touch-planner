@@ -1,19 +1,54 @@
 # Touch Planner
 
-Une calculatrice de craft avancée pour Dofus Touch avec suivi des prix du marché et organisation par métiers.
+<div align="center">
 
-## Fonctionnalités
+![Touch Planner Logo](https://raw.githubusercontent.com/DaMolks/touch-planner/main/assets/icon.png)
 
-- **Organisation des objets** : Par métiers et catégories
-- **Calcul de rentabilité** : Prend en compte la taxe de vente de 3%
-- **Suivi de l'historique des prix** : Avec graphiques d'évolution
-- **Indicateurs visuels** : Prix bas, moyen ou élevé par rapport à l'historique
-- **Calcul par lots** : Simulez des crafts de 1, 10, 100 ou 1000 items
-- **Stockage local** : Les prix sont sauvegardés dans votre navigateur
-- **Mise à jour des données** : Possibilité de recharger le fichier JSON si de nouvelles données sont disponibles
-- **Application desktop** : Disponible en version desktop avec interface native
+*Une calculatrice de craft avancée pour Dofus Touch avec suivi des prix du marché et organisation par métiers*
 
-## Installation
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/DaMolks/touch-planner/releases/tag/v1.0.0)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/DaMolks/touch-planner/blob/main/LICENSE)
+
+</div>
+
+## 📋 Présentation
+
+Touch Planner est un outil de gestion économique pour Dofus Touch qui vous permet de calculer la rentabilité de vos crafts, suivre l'évolution des prix du marché et organiser vos productions par métiers. Disponible en version web et desktop, l'application fonctionne entièrement en local pour une performance optimale.
+
+## ✨ Fonctionnalités
+
+- **🔍 Organisation intuitive** : Classement par métiers et catégories
+- **💰 Calcul de rentabilité précis** : Prise en compte de la taxe de vente de 3%
+- **📈 Historique des prix** : Visualisation graphique de l'évolution des prix
+- **🚦 Indicateurs économiques** : Système visuel pour identifier les prix bas, moyens ou élevés
+- **🔄 Calcul par lots** : Simulation de crafts en séries (1, 10, 100 ou 1000 items)
+- **💾 Sauvegarde locale** : Stockage des données dans votre navigateur
+- **🖥️ Version desktop** : Interface native pour Windows
+
+## 🛠️ Technologies utilisées
+
+- **Frontend**
+  - React.js avec hooks pour une interface utilisateur réactive
+  - Context API pour la gestion d'état globale
+  - Styled Components pour le styling modulaire
+  - Chart.js pour les visualisations graphiques
+  
+- **Stockage**
+  - LocalStorage pour la persistance des données
+  - IndexedDB pour le stockage des historiques de prix volumineux
+  
+- **Desktop**
+  - Electron pour l'encapsulation multiplateforme
+  - Electron-builder pour la génération des installateurs
+
+- **Outils de développement**
+  - Webpack pour le bundling
+  - ESLint et Prettier pour le formatage du code
+  - Jest pour les tests unitaires
+
+## 🚀 Installation
+
+### Version Web
 
 1. Clonez le dépôt :
 ```bash
@@ -28,129 +63,67 @@ npm install
 
 3. Lancez l'application en développement :
 ```bash
-# Version web
 npm start
-
-# Version desktop
-npm run electron-dev
 ```
 
 4. Pour construire la version de production :
 ```bash
-# Version web
 npm run build
-
-# Version desktop Windows (exécutable .exe)
-npm run electron-pack
 ```
 
-## Utilisation
-
-### Chargement des données
-
-1. Au premier démarrage, vous devez charger un fichier JSON contenant les données du jeu
-2. Utilisez le [script de scraping](https://github.com/DaMolks/dofus-touch-scraper) pour générer ce fichier JSON
-3. Une fois chargé, les données sont stockées dans le navigateur
-4. Vous pouvez mettre à jour les données à tout moment via le bouton "Recharger les données" dans l'en-tête
-
-### Navigation et filtrage
-
-1. Utilisez les onglets de métiers pour filtrer les objets par métier
-2. Utilisez les filtres de catégories pour filtrer par type d'objet
-3. Utilisez la barre de recherche pour trouver rapidement un objet spécifique
-
-### Calcul de rentabilité
-
-1. Sélectionnez un objet dans la liste pour voir sa recette
-2. Entrez les prix des ingrédients et le prix de vente
-3. Choisissez la taille du lot (1, 10, 100 ou 1000 items)
-4. Consultez les résultats de rentabilité avec taxe incluse
-
-### Suivi des prix
-
-1. Les cercles colorés à côté des prix indiquent si le prix est :
-   - 🟢 Bas (inférieur à 90% de la moyenne)
-   - 🟠 Moyen (entre 90% et 110% de la moyenne)
-   - 🔴 Élevé (supérieur à 110% de la moyenne)
-2. Cliquez sur ces indicateurs pour voir l'historique des prix
-3. Les prix sont automatiquement ajoutés à l'historique à chaque modification
-
-## Version Desktop
-
-L'application est disponible en version desktop avec interface native Windows, comprenant les boutons standard (agrandir, réduire, fermer).
-
-### Configuration requise
-
-- Windows 7 ou supérieur
-- 100 Mo d'espace disque
-
-### Installation de la version desktop
+### Version Desktop
 
 1. Téléchargez le dernier installateur depuis la section [Releases](https://github.com/DaMolks/touch-planner/releases)
+
 2. Exécutez l'installateur et suivez les instructions
-3. L'application sera installée et un raccourci sera créé sur votre bureau
 
-### Compiler l'exécutable
-
-Pour créer l'installateur Windows :
-
+3. Ou compilez vous-même l'exécutable :
 ```bash
-# Assurez-vous d'avoir une icône icon.ico dans le dossier assets
 npm run electron-pack
 ```
 
-L'installateur sera généré dans le dossier `dist`.
+## 📊 Utilisation
 
-## Structure des données
+1. **Chargement des données** : Au premier démarrage, chargez un fichier JSON contenant les données du jeu
+2. **Navigation** : Utilisez les onglets et filtres pour trouver rapidement les objets
+3. **Calcul** : Sélectionnez un objet, entrez les prix et visualisez la rentabilité
+4. **Suivi** : Consultez l'historique des prix pour optimiser vos achats et ventes
 
-Le fichier JSON doit contenir trois sections principales :
+## 🔮 Perspectives futures
 
-```json
-{
-  "items": {
-    "12345": {
-      "id": 12345,
-      "name": "Nom de l'objet",
-      "imgUrl": "https://...",
-      "type": "equipement",
-      "level": 50
-    }
-  },
-  "recipes": {
-    "12345": {
-      "resultId": 12345,
-      "ingredients": [
-        {"itemId": 6789, "quantity": 3},
-        {"itemId": 9876, "quantity": 1}
-      ],
-      "jobId": 5,
-      "jobLevel": 45
-    }
-  },
-  "jobs": {
-    "5": {
-      "id": 5,
-      "name": "Forgeur de Marteaux"
-    }
-  }
-}
-```
+### Plateforme communautaire de prix
 
-## Génération des données
+Pour la version 2.0, nous prévoyons d'implémenter un système de partage communautaire des prix :
 
-Pour générer le fichier JSON des données, utilisez notre [script de scraping Python](https://github.com/DaMolks/dofus-touch-scraper) qui extrait les informations depuis le wiki officiel de Dofus Touch.
+- **📡 Synchronisation cloud** : Envoi et réception des prix moyens du marché
+- **🌐 Base de données centralisée** : Stockage sécurisé des données de prix
+- **📊 Statistiques avancées** : Analyse des tendances par serveur
+- **🔐 Système de contribution** : Validation communautaire pour assurer la fiabilité des prix
+- **📱 Application mobile** : Extension de l'écosystème avec une version mobile
 
-## Technologies utilisées
+### Autres fonctionnalités prévues
 
-- React.js pour l'interface utilisateur
-- Chart.js pour les graphiques d'historique des prix
-- LocalStorage pour la persistance des données
-- Electron pour la version desktop
+- **🧮 Système de calcul d'optimisation** : Suggestions automatiques pour maximiser les profits
+- **📑 Profils d'utilisateurs** : Sauvegarde de multiples configurations par serveur
+- **🔔 Alertes de prix** : Notifications pour les variations importantes
+- **🧩 API publique** : Intégration possible avec d'autres outils
 
-## Contribution
+## 🤝 Contribution
 
-Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou une pull request pour suggérer des améliorations.
+Les contributions sont les bienvenues ! N'hésitez pas à :
 
-## Licence
+1. Fork le projet
+2. Créer une branche (`git checkout -b feature/amazing-feature`)
+3. Commit vos changements (`git commit -m 'feat: add amazing feature'`)
+4. Push sur la branche (`git push origin feature/amazing-feature`)
+5. Ouvrir une Pull Request
 
-MIT
+## 📜 Licence
+
+Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+---
+
+<div align="center">
+  <sub>Made with ❤️ by DaMolks</sub>
+</div>
