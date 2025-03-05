@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import ReloadButton from './ReloadButton';
 import ThemeToggle from './ThemeToggle';
 import WindowControls from './WindowControls';
 // Importation du logo depuis le dossier public
@@ -42,7 +41,6 @@ const Header = () => {
             )}
           </div>
           <div className="header-right">
-            <ReloadButton />
             <ThemeToggle />
             {isElectron && <WindowControls />}
           </div>
