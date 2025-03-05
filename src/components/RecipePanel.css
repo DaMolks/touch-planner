@@ -15,6 +15,36 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+/* Nouvelle mise en page pour l'en-tête de recette */
+.recipe-item-row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.recipe-image-container {
+  flex: 0 0 80px;
+  margin-right: 16px;
+}
+
+.recipe-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.recipe-details-container {
+  flex: 1;
+}
+
+.recipe-details-container h3 {
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.recipe-details-container p {
+  margin: 4px 0;
+}
+
 /* Sélecteur de taille de lot */
 .batch-selector {
   margin-bottom: 16px;
