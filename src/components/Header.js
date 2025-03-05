@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReloadButton from './ReloadButton';
 import ThemeToggle from './ThemeToggle';
 import WindowControls from './WindowControls';
-// Importation directe du logo avec un chemin relatif
-import logo from '../assets/touch-planner-logo.png';
+// Importation du logo depuis le dossier public
 import './Header.css';
 
 const Header = () => {
@@ -23,6 +22,9 @@ const Header = () => {
     setLogoError(true);
   };
 
+  // Utiliser le chemin du dossier public pour l'image
+  const logoPath = process.env.PUBLIC_URL + '/touch-planner-logo.png';
+
   return (
     <header className="header">
       <div className="container">
@@ -32,7 +34,7 @@ const Header = () => {
               <h1>Touch Planner</h1>
             ) : (
               <img 
-                src={logo} 
+                src={logoPath}
                 alt="Touch Planner" 
                 className="header-logo" 
                 onError={handleImageError}
