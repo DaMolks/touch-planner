@@ -174,9 +174,11 @@
   flex: 1;
   font-weight: 500;
   color: var(--text-color);
+  font-size: 0.9em; /* Même taille que les catégories */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  padding-right: 10px; /* Ajout d'un espace pour éviter de toucher le type */
 }
 
 .item-list-type {
