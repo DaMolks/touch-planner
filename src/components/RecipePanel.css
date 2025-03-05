@@ -51,18 +51,38 @@
   padding: 12px;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Mise en page en ligne pour les paramètres */
+.inline-setting {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
 }
 
 .setting-label {
   font-weight: bold;
-  margin-bottom: 10px;
   color: var(--text-color);
+  flex: 0 0 auto;
+  margin-right: 20px;
 }
 
 .setting-value {
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+}
+
+/* Styles pour les sections qui ne sont pas en ligne */
+.ingredients-container .setting-label,
+.results-container .setting-label {
+  margin-bottom: 10px;
+}
+
+.ingredients-container .setting-value,
+.results-container .setting-value {
   flex-direction: column;
 }
 
@@ -205,6 +225,11 @@
 }
 
 /* Style pour les champs de prix */
+.price-input {
+  display: flex;
+  align-items: center;
+}
+
 .price-input-wrapper {
   position: relative;
   display: flex;
@@ -264,9 +289,4 @@
   border-radius: 4px;
   background-color: var(--input-bg);
   color: var(--text-color);
-}
-
-.batch-selector .setting-value {
-  flex-direction: row;
-  align-items: center;
 }
