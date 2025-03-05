@@ -15,6 +15,7 @@ export const PriceProvider = ({ children }) => {
   const [tempPrices, setTempPrices] = useState({}); // Valeurs temporaires pendant l'édition
   const [priceHistory, setPriceHistory] = useState({});
   const [batchSize, setBatchSize] = useState(1);
+  const [lastConfirmedPrice, setLastConfirmedPrice] = useState({});
   
   // Charger les prix et l'historique depuis localStorage au demarrage
   useEffect(() => {
@@ -25,6 +26,7 @@ export const PriceProvider = ({ children }) => {
           const parsedPrices = JSON.parse(savedPrices);
           setPrices(parsedPrices);
           setTempPrices(parsedPrices); // Initialiser les valeurs temporaires
+          setLastConfirmedPrice(parsedPrices); // Initialiser les derniers prix confirmés
         }
 
         const savedHistory = localStorage.getItem('priceHistory');
@@ -48,9 +50,12 @@ export const PriceProvider = ({ children }) => {
   // Valider et sauvegarder le prix définitif
   const confirmPrice = (itemId) => {
     const price = tempPrices[itemId];
-    if (price !== prices[itemId]) { // Ne valider que si le prix a changé
+    // Ne valider que si le prix a changé par rapport au prix actuel
+    // ET s'il est différent du dernier prix confirmé (pour éviter les doublons dans l'historique)
+    if (price !== prices[itemId] && price !== lastConfirmedPrice[itemId]) {
       const newPrices = { ...prices, [itemId]: price };
       setPrices(newPrices);
+      setLastConfirmedPrice(prev => ({ ...prev, [itemId]: price }));
       localStorage.setItem('prices', JSON.stringify(newPrices));
       
       // Ajouter à l'historique des prix
@@ -68,6 +73,13 @@ export const PriceProvider = ({ children }) => {
     // Initialiser l'historique pour cet item s'il n'existe pas encore
     if (!newHistory[itemId]) {
       newHistory[itemId] = [];
+    }
+
+    // Vérifier si le dernier prix dans l'historique est identique
+    // (protection supplémentaire contre les doublons)
+    const lastEntry = newHistory[itemId][newHistory[itemId].length - 1];
+    if (lastEntry && lastEntry.price === price) {
+      return; // Ne pas ajouter si c'est la même valeur que la dernière entrée
     }
 
     // Ajouter le nouveau prix avec un horodatage
@@ -105,6 +117,7 @@ export const PriceProvider = ({ children }) => {
           const newPrices = { ...prices, [itemId]: lastEntry.price };
           setPrices(newPrices);
           setTempPrices(prev => ({ ...prev, [itemId]: lastEntry.price }));
+          setLastConfirmedPrice(prev => ({ ...prev, [itemId]: lastEntry.price }));
           localStorage.setItem('prices', JSON.stringify(newPrices));
         }
       } else {
@@ -112,6 +125,7 @@ export const PriceProvider = ({ children }) => {
         const newPrices = { ...prices, [itemId]: 0 };
         setPrices(newPrices);
         setTempPrices(prev => ({ ...prev, [itemId]: 0 }));
+        setLastConfirmedPrice(prev => ({ ...prev, [itemId]: 0 }));
         localStorage.setItem('prices', JSON.stringify(newPrices));
       }
       
