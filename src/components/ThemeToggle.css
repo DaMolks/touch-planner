@@ -1,34 +1,49 @@
 .theme-toggle-button {
-  background-color: transparent;
-  border: none;
+  background-color: var(--accent-primary);
+  border: 2px solid var(--border-color);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 8px;
   border-radius: 50%;
-  color: var(--header-text);
-  transition: background-color 0.3s, transform 0.3s;
+  color: var(--button-text);
+  transition: all 0.3s;
   margin-left: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .theme-toggle-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  transform: rotate(15deg);
+  transform: rotate(15deg) scale(1.1);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle-button:active {
+  transform: scale(0.95);
 }
 
 .theme-toggle-button svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.5px;
+}
+
+.dark-theme .theme-toggle-button {
+  background-color: #ffb84d;
+  color: #1a1711;
+}
+
+.dark-theme .theme-toggle-button:hover {
+  background-color: #ffc875;
 }
 
 @media (max-width: 768px) {
   .theme-toggle-button {
-    padding: 5px;
+    padding: 6px;
   }
   
   .theme-toggle-button svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 }
