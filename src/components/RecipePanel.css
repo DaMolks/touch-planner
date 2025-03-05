@@ -45,34 +45,37 @@
   margin: 4px 0;
 }
 
-/* Sélecteur de taille de lot */
-.batch-selector {
+/* Structure commune pour toutes les sections */
+.setting-row {
   margin-bottom: 16px;
   padding: 12px;
   border-radius: 8px;
   background-color: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
 }
 
-/* Conteneur du prix de vente */
-.selling-price-container {
-  margin-bottom: 16px;
-  padding: 12px;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.05);
+.setting-label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.setting-value {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Conteneur des ingrédients */
-.ingredients-container {
-  margin-bottom: 16px;
-  padding: 12px;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.05);
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* Élément d'ingrédient individuel */
 .ingredient-item {
   padding: 8px;
-  margin-bottom: 8px;
   border-radius: 6px;
   background-color: rgba(0, 0, 0, 0.02);
 }
@@ -122,12 +125,46 @@
   align-items: center;
 }
 
-/* Conteneur des résultats */
-.results-container {
-  margin-bottom: 16px;
-  padding: 12px;
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.05);
+/* Ligne de calcul pour les résultats */
+.calculation-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.calculation-row:last-child {
+  border-bottom: none;
+}
+
+.calculation-row .value {
+  font-weight: 500;
+}
+
+.tax-row {
+  color: var(--text-secondary);
+}
+
+.profit-row {
+  font-weight: bold;
+  padding: 8px 0;
+  margin-top: 4px;
+}
+
+.profit-row.positive {
+  color: var(--success-color);
+}
+
+.profit-row.negative {
+  color: var(--accent-danger);
+}
+
+.warning-row {
+  color: var(--accent-warning);
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 10px;
 }
 
 /* État vide */
@@ -218,4 +255,18 @@
   font-size: 0.8em;
   margin-top: 2px;
   font-style: italic;
+}
+
+/* Styles spécifiques pour le sélecteur de lot */
+.batch-selector select {
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+}
+
+.batch-selector .setting-value {
+  flex-direction: row;
+  align-items: center;
 }
