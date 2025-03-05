@@ -159,59 +159,63 @@ const RecipePanel = () => {
       </div>
 
       {/* Selecteur de taille de lot */}
-      <div className="batch-selector">
-        <label>Calculer pour un lot de:</label>
-        <select 
-          value={batchSize} 
-          onChange={(e) => setBatchSize(parseInt(e.target.value))}
-        >
-          <option value="1">1 item</option>
-          <option value="10">10 items</option>
-          <option value="100">100 items</option>
-          <option value="1000">1000 items</option>
-        </select>
+      <div className="setting-row batch-selector">
+        <div className="setting-label">Calculer pour un lot de:</div>
+        <div className="setting-value">
+          <select 
+            value={batchSize} 
+            onChange={(e) => setBatchSize(parseInt(e.target.value))}
+          >
+            <option value="1">1 item</option>
+            <option value="10">10 items</option>
+            <option value="100">100 items</option>
+            <option value="1000">1000 items</option>
+          </select>
+        </div>
       </div>
 
       {/* Prix de vente */}
-      <div className="selling-price-container">
-        <h3>Prix de vente unitaire:</h3>
-        <div className="price-input">
-          <div className="price-input-wrapper">
-            <input 
-              type="number" 
-              min="0" 
-              value={tempPrices[selectedItemId] || 0} 
-              onChange={(e) => handlePriceChange(selectedItemId, e.target.value)}
-              onBlur={() => handlePriceConfirm(selectedItemId)}
-              onKeyDown={(e) => handleKeyDown(e, selectedItemId)}
-              onWheel={handleWheel}
-            />
-            {tempPrices[selectedItemId] !== prices[selectedItemId] && (
-              <button 
-                className="price-validate-btn" 
-                onClick={() => handlePriceConfirm(selectedItemId)}
-                title="Valider le prix"
-              >
-                ✓
-              </button>
-            )}
+      <div className="setting-row price-container">
+        <div className="setting-label">Prix de vente unitaire:</div>
+        <div className="setting-value">
+          <div className="price-input">
+            <div className="price-input-wrapper">
+              <input 
+                type="number" 
+                min="0" 
+                value={tempPrices[selectedItemId] || 0} 
+                onChange={(e) => handlePriceChange(selectedItemId, e.target.value)}
+                onBlur={() => handlePriceConfirm(selectedItemId)}
+                onKeyDown={(e) => handleKeyDown(e, selectedItemId)}
+                onWheel={handleWheel}
+              />
+              {tempPrices[selectedItemId] !== prices[selectedItemId] && (
+                <button 
+                  className="price-validate-btn" 
+                  onClick={() => handlePriceConfirm(selectedItemId)}
+                  title="Valider le prix"
+                >
+                  ✓
+                </button>
+              )}
+            </div>
+            <span className="label-kamas">kamas</span>
+            <span 
+              className={`price-indicator ${getPriceIndicator(selectedItemId, prices[selectedItemId] || 0)}`}
+              onClick={(e) => showHistory(selectedItemId, selectedItem.name, e)}
+              title="Voir l'historique des prix"
+            ></span>
           </div>
-          <span className="label-kamas">kamas</span>
-          <span 
-            className={`price-indicator ${getPriceIndicator(selectedItemId, prices[selectedItemId] || 0)}`}
-            onClick={(e) => showHistory(selectedItemId, selectedItem.name, e)}
-            title="Voir l'historique des prix"
-          ></span>
+          {tempPrices[selectedItemId] !== prices[selectedItemId] && (
+            <div className="price-not-saved">Prix non validé</div>
+          )}
         </div>
-        {tempPrices[selectedItemId] !== prices[selectedItemId] && (
-          <div className="price-not-saved">Prix non validé</div>
-        )}
       </div>
 
       {/* Ingredients */}
-      <div className="ingredients-container">
-        <h3>Ingredients necessaires pour {batchSize} item(s):</h3>
-        <div className="ingredients-list">
+      <div className="setting-row ingredients-container">
+        <div className="setting-label">Ingredients nécessaires pour {batchSize} item(s):</div>
+        <div className="setting-value ingredients-list">
           {recipe.ingredients.map(ingredient => {
             const ingredientItem = gameData.items[ingredient.itemId];
             if (!ingredientItem) return null;
@@ -273,32 +277,35 @@ const RecipePanel = () => {
       </div>
 
       {/* Resultats de rentabilite */}
-      <div className="results-container">
-        <div className="calculation-row">
-          <span>Cout total des ingredients:</span>
-          <span className="value">{profitInfo.cost.toLocaleString()} kamas</span>
-        </div>
-        <div className="calculation-row">
-          <span>Prix de vente total:</span>
-          <span className="value">{profitInfo.totalSellingPrice.toLocaleString()} kamas</span>
-        </div>
-        <div className="calculation-row tax-row">
-          <span>Taxe de vente (3%):</span>
-          <span className="value">-{profitInfo.tax.toLocaleString()} kamas</span>
-        </div>
-        <div className="calculation-row">
-          <span>Prix net apres taxe:</span>
-          <span className="value">{profitInfo.netSellingPrice.toLocaleString()} kamas</span>
-        </div>
-        <div className={`calculation-row profit-row ${profitInfo.profit >= 0 ? 'positive' : 'negative'}`}>
-          <span>Profit pour {batchSize} item(s):</span>
-          <span className="value">{profitInfo.profit.toLocaleString()} kamas ({profitInfo.profitPercent.toFixed(2)}%)</span>
-        </div>
-        {Object.keys(tempPrices).some(key => tempPrices[key] !== prices[key]) && (
-          <div className="calculation-row warning-row">
-            <span>⚠️ Certains prix n'ont pas été validés, les calculs utilisent les derniers prix confirmés.</span>
+      <div className="setting-row results-container">
+        <div className="setting-label">Résultats du calcul:</div>
+        <div className="setting-value">
+          <div className="calculation-row">
+            <span>Cout total des ingredients:</span>
+            <span className="value">{profitInfo.cost.toLocaleString()} kamas</span>
           </div>
-        )}
+          <div className="calculation-row">
+            <span>Prix de vente total:</span>
+            <span className="value">{profitInfo.totalSellingPrice.toLocaleString()} kamas</span>
+          </div>
+          <div className="calculation-row tax-row">
+            <span>Taxe de vente (3%):</span>
+            <span className="value">-{profitInfo.tax.toLocaleString()} kamas</span>
+          </div>
+          <div className="calculation-row">
+            <span>Prix net apres taxe:</span>
+            <span className="value">{profitInfo.netSellingPrice.toLocaleString()} kamas</span>
+          </div>
+          <div className={`calculation-row profit-row ${profitInfo.profit >= 0 ? 'positive' : 'negative'}`}>
+            <span>Profit pour {batchSize} item(s):</span>
+            <span className="value">{profitInfo.profit.toLocaleString()} kamas ({profitInfo.profitPercent.toFixed(2)}%)</span>
+          </div>
+          {Object.keys(tempPrices).some(key => tempPrices[key] !== prices[key]) && (
+            <div className="calculation-row warning-row">
+              <span>⚠️ Certains prix n'ont pas été validés, les calculs utilisent les derniers prix confirmés.</span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Modal pour l'historique des prix */}
