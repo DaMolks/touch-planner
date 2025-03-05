@@ -1,3 +1,68 @@
+/* Styles pour le panneau de recette */
+.recipe-panel {
+  background-color: var(--panel-bg-color);
+  border-radius: 8px;
+  box-shadow: var(--panel-shadow);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* En-tête de la recette */
+.recipe-header {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Sélecteur de taille de lot */
+.batch-selector {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Conteneur du prix de vente */
+.selling-price-container {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Conteneur des ingrédients */
+.ingredients-container {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Élément d'ingrédient individuel */
+.ingredient-item {
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Conteneur des résultats */
+.results-container {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* État vide */
+.empty-state {
+  padding: 20px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
 /* Styles spécifiques pour les indicateurs de prix */
 .price-indicator {
   width: 16px;
