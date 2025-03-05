@@ -84,7 +84,6 @@
   overflow-y: auto;
   padding-right: 5px;
   width: 100%;
-  table-layout: fixed; /* Utilise la mise en page de tableau fixe */
   min-height: 100px; /* Hauteur minimale pour assurer une zone visible */
 }
 
@@ -126,19 +125,22 @@
   font-size: 1.2em;
 }
 
-/* Format de liste avec table layout pour largeurs fixes */
+/* Style modifié pour la liste des objets */
 .level-items-list {
-  display: table;
-  width: 100%;
-  table-layout: fixed; /* Force des colonnes de largeur fixe */
-  border-collapse: collapse;
+  border-top: 1px solid var(--border-color);
 }
 
 .item-list-row {
-  display: table-row;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.item-list-row:last-child {
+  border-bottom: none;
 }
 
 .item-list-row:hover {
@@ -148,14 +150,12 @@
 .item-list-row.selected {
   background-color: var(--active-bg);
   border-left: 3px solid var(--accent-primary);
+  padding-left: 12px; /* Compenser la bordure gauche */
 }
 
 .item-list-image {
-  display: table-cell;
-  vertical-align: middle;
-  width: 50px; /* Largeur fixe */
-  padding: 8px;
-  text-align: center;
+  flex: 0 0 32px;
+  margin-right: 10px;
 }
 
 .item-list-image img {
@@ -166,10 +166,7 @@
 }
 
 .item-list-name {
-  display: table-cell;
-  vertical-align: middle;
-  width: 65%; /* Largeur fixe */
-  padding: 8px;
+  flex: 1;
   font-weight: 500;
   color: var(--text-color);
   white-space: nowrap;
@@ -178,17 +175,10 @@
 }
 
 .item-list-type {
-  display: table-cell;
-  vertical-align: middle;
-  width: 35%; /* Largeur fixe */
-  padding: 8px;
+  flex: 0 0 auto;
   color: var(--text-secondary);
   font-size: 0.85em;
-  text-transform: capitalize;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: right;
+  margin-left: 10px;
 }
 
 .item-list-type-inner {
@@ -216,11 +206,7 @@
   }
   
   .item-list-type {
-    width: 30%;
-  }
-  
-  .item-list-name {
-    width: 70%;
+    display: none;
   }
 }
 
@@ -236,11 +222,17 @@
     margin-bottom: 3px;
   }
   
-  .item-list-type {
-    display: none;
+  .item-list-row {
+    padding: 6px 10px;
   }
   
-  .item-list-name {
-    width: 80%;
+  .item-list-image {
+    flex: 0 0 24px;
+    margin-right: 8px;
+  }
+  
+  .item-list-image img {
+    width: 24px;
+    height: 24px;
   }
 }
