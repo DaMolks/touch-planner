@@ -19,16 +19,36 @@ export const DataProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedItemId, setSelectedItemId] = useState(null);
 
-  // Charger les donnees depuis localStorage au demarrage
+  // Charger les donnees depuis localStorage ou du fichier par défaut au démarrage
   useEffect(() => {
-    const loadData = () => {
+    const loadData = async () => {
       try {
+        // D'abord essayer de charger depuis localStorage
         const savedData = localStorage.getItem('gameData');
         if (savedData) {
           setGameData(JSON.parse(savedData));
+          setLoading(false);
+          return;
+        }
+
+        // Si pas de données dans localStorage, charger depuis le fichier par défaut
+        const response = await fetch(`${process.env.PUBLIC_URL}/game-data.json`);
+        if (response.ok) {
+          const defaultData = await response.json();
+          
+          // Vérifier que le fichier contient les données attendues
+          if (!defaultData.items || !defaultData.recipes || !defaultData.jobs) {
+            throw new Error('Le fichier de données par défaut ne contient pas les informations nécessaires');
+          }
+          
+          // Sauvegarder les données et mettre à jour l'état
+          localStorage.setItem('gameData', JSON.stringify(defaultData));
+          setGameData(defaultData);
+        } else {
+          console.error('Erreur lors du chargement du fichier de données par défaut');
         }
       } catch (error) {
-        console.error('Erreur lors du chargement des donnees:', error);
+        console.error('Erreur lors du chargement des données:', error);
       } finally {
         setLoading(false);
       }
