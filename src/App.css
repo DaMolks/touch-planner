@@ -38,6 +38,8 @@
 .items-panel {
   flex: 0 0 30%; /* Fixe la largeur à 30% */
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .recipe-panel {
@@ -55,17 +57,44 @@
   .recipe-panel {
     flex: none;
     width: 100%;
-    margin-right: 0;
+  }
+  
+  /* Pour les tablettes, assurer une hauteur suffisante pour chaque panneau */
+  .items-panel {
+    max-height: 40vh; /* Limiter la hauteur de la liste d'objets à 40% de la hauteur de l'écran */
+    min-height: 300px; /* Mais garder une hauteur minimale */
+  }
+  
+  .recipe-panel {
+    flex: 1; /* Laisser le panneau de recette prendre l'espace restant */
+    min-height: 400px; /* Hauteur minimale pour le panneau de recette */
   }
 }
 
 /* Ajuster pour les très petits écrans */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .container {
     padding: 0 10px 10px;
   }
   
   .main-content {
     gap: 10px;
+  }
+  
+  .items-panel {
+    max-height: 40vh; /* Encore plus petit sur mobile */
+    min-height: 250px;
+  }
+  
+  .recipe-panel {
+    min-height: 350px;
+  }
+}
+
+/* Pour les très petits écrans */
+@media (max-width: 480px) {
+  .items-panel {
+    max-height: 50vh; /* Plus d'espace pour les catégories et la recherche */
+    min-height: 200px;
   }
 }
