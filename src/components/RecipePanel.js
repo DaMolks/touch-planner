@@ -141,20 +141,20 @@ const RecipePanel = () => {
       
       {/* En-tete de la recette */}
       <div className="recipe-header">
-        <div className="recipe-item-info">
-          <ImageWithFallback 
-            src={selectedItem.imgUrl} 
-            alt={selectedItem.name} 
-            className="recipe-item-image"
-          />
-          <div className="recipe-item-details">
+        <div className="recipe-item-row">
+          <div className="recipe-image-container">
+            <ImageWithFallback 
+              src={selectedItem.imgUrl} 
+              alt={selectedItem.name} 
+              className="recipe-item-image"
+            />
+          </div>
+          <div className="recipe-details-container">
             <h3>{selectedItem.name}</h3>
             <p className="item-level">Niveau {selectedItem.level || '?'}</p>
+            <p><strong>Metier:</strong> {job ? job.name : 'Inconnu'}</p>
+            <p><strong>Niveau requis:</strong> {recipe.jobLevel || '?'}</p>
           </div>
-        </div>
-        <div className="recipe-profession">
-          <p><strong>Metier:</strong> {job ? job.name : 'Inconnu'}</p>
-          <p><strong>Niveau requis:</strong> {recipe.jobLevel || '?'}</p>
         </div>
       </div>
 
