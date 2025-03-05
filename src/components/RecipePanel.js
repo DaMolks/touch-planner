@@ -160,56 +160,60 @@ const RecipePanel = () => {
 
       {/* Selecteur de taille de lot */}
       <div className="setting-row batch-selector">
-        <div className="setting-label">Calculer pour un lot de:</div>
-        <div className="setting-value">
-          <select 
-            value={batchSize} 
-            onChange={(e) => setBatchSize(parseInt(e.target.value))}
-          >
-            <option value="1">1 item</option>
-            <option value="10">10 items</option>
-            <option value="100">100 items</option>
-            <option value="1000">1000 items</option>
-          </select>
+        <div className="inline-setting">
+          <div className="setting-label">Calculer pour un lot de:</div>
+          <div className="setting-value">
+            <select 
+              value={batchSize} 
+              onChange={(e) => setBatchSize(parseInt(e.target.value))}
+            >
+              <option value="1">1 item</option>
+              <option value="10">10 items</option>
+              <option value="100">100 items</option>
+              <option value="1000">1000 items</option>
+            </select>
+          </div>
         </div>
       </div>
 
       {/* Prix de vente */}
       <div className="setting-row price-container">
-        <div className="setting-label">Prix de vente unitaire:</div>
-        <div className="setting-value">
-          <div className="price-input">
-            <div className="price-input-wrapper">
-              <input 
-                type="number" 
-                min="0" 
-                value={tempPrices[selectedItemId] || 0} 
-                onChange={(e) => handlePriceChange(selectedItemId, e.target.value)}
-                onBlur={() => handlePriceConfirm(selectedItemId)}
-                onKeyDown={(e) => handleKeyDown(e, selectedItemId)}
-                onWheel={handleWheel}
-              />
-              {tempPrices[selectedItemId] !== prices[selectedItemId] && (
-                <button 
-                  className="price-validate-btn" 
-                  onClick={() => handlePriceConfirm(selectedItemId)}
-                  title="Valider le prix"
-                >
-                  ✓
-                </button>
-              )}
+        <div className="inline-setting">
+          <div className="setting-label">Prix de vente unitaire:</div>
+          <div className="setting-value">
+            <div className="price-input">
+              <div className="price-input-wrapper">
+                <input 
+                  type="number" 
+                  min="0" 
+                  value={tempPrices[selectedItemId] || 0} 
+                  onChange={(e) => handlePriceChange(selectedItemId, e.target.value)}
+                  onBlur={() => handlePriceConfirm(selectedItemId)}
+                  onKeyDown={(e) => handleKeyDown(e, selectedItemId)}
+                  onWheel={handleWheel}
+                />
+                {tempPrices[selectedItemId] !== prices[selectedItemId] && (
+                  <button 
+                    className="price-validate-btn" 
+                    onClick={() => handlePriceConfirm(selectedItemId)}
+                    title="Valider le prix"
+                  >
+                    ✓
+                  </button>
+                )}
+              </div>
+              <span className="label-kamas">kamas</span>
+              <span 
+                className={`price-indicator ${getPriceIndicator(selectedItemId, prices[selectedItemId] || 0)}`}
+                onClick={(e) => showHistory(selectedItemId, selectedItem.name, e)}
+                title="Voir l'historique des prix"
+              ></span>
             </div>
-            <span className="label-kamas">kamas</span>
-            <span 
-              className={`price-indicator ${getPriceIndicator(selectedItemId, prices[selectedItemId] || 0)}`}
-              onClick={(e) => showHistory(selectedItemId, selectedItem.name, e)}
-              title="Voir l'historique des prix"
-            ></span>
           </div>
-          {tempPrices[selectedItemId] !== prices[selectedItemId] && (
-            <div className="price-not-saved">Prix non validé</div>
-          )}
         </div>
+        {tempPrices[selectedItemId] !== prices[selectedItemId] && (
+          <div className="price-not-saved">Prix non validé</div>
+        )}
       </div>
 
       {/* Ingredients */}
