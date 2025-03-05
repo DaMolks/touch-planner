@@ -154,13 +154,18 @@
 }
 
 .item-list-image {
-  flex: 0 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .item-list-image img {
-  width: 32px;
-  height: 32px;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   vertical-align: middle;
 }
@@ -228,11 +233,8 @@
   
   .item-list-image {
     flex: 0 0 24px;
-    margin-right: 8px;
-  }
-  
-  .item-list-image img {
     width: 24px;
     height: 24px;
+    margin-right: 8px;
   }
 }
