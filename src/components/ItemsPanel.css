@@ -32,6 +32,8 @@
   flex-wrap: wrap;
   margin-bottom: 15px;
   gap: 8px;
+  max-height: 150px; /* Limite la hauteur sur les petits écrans */
+  overflow-y: auto; /* Ajoute un défilement vertical si nécessaire */
 }
 
 .category-filter {
@@ -41,6 +43,8 @@
   cursor: pointer;
   font-size: 0.9em;
   transition: all 0.2s;
+  margin-bottom: 5px; /* Espacement entre les éléments */
+  flex: 0 0 auto; /* Empêche les éléments de s'étirer */
 }
 
 .category-filter:hover {
@@ -81,6 +85,7 @@
   padding-right: 5px;
   width: 100%;
   table-layout: fixed; /* Utilise la mise en page de tableau fixe */
+  min-height: 100px; /* Hauteur minimale pour assurer une zone visible */
 }
 
 .level-group {
@@ -206,6 +211,10 @@
 
 /* Media queries pour la responsivité */
 @media (max-width: 768px) {
+  .category-filters {
+    max-height: 120px;
+  }
+  
   .item-list-type {
     width: 30%;
   }
@@ -216,9 +225,15 @@
 }
 
 @media (max-width: 480px) {
+  .category-filters {
+    max-height: 100px;
+    gap: 5px;
+  }
+  
   .category-filter {
     padding: 4px 8px;
     font-size: 0.8em;
+    margin-bottom: 3px;
   }
   
   .item-list-type {
