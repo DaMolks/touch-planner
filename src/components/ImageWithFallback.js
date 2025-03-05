@@ -26,7 +26,11 @@ const ImageWithFallback = ({ src, alt, className }) => {
     return (
       <div 
         className={`image-fallback ${className || ''}`}
-        style={{ backgroundColor: bgColor }}
+        style={{ 
+          backgroundColor: bgColor,
+          width: '100%',
+          height: '100%'
+        }}
         title={alt}
       >
         {initial}
@@ -34,13 +38,10 @@ const ImageWithFallback = ({ src, alt, className }) => {
     );
   }
   
-  // Essayer de charger l'image via un proxy CORS
-  // Note: vous devriez configurer votre propre proxy CORS pour la production
-  const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(src)}`;
-  
+  // Essayer de charger l'image directement
   return (
     <img
-      src={proxyUrl}
+      src={src}
       alt={alt}
       className={className}
       onError={() => setHasError(true)}
