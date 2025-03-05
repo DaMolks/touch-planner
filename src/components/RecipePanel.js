@@ -220,45 +220,48 @@ const RecipePanel = () => {
             
             return (
               <div key={ingredient.itemId} className="ingredient-item">
-                <div className="ingredient-info">
-                  <ImageWithFallback 
-                    src={ingredientItem.imgUrl} 
-                    alt={ingredientItem.name} 
-                    className="ingredient-image"
-                  />
-                  <div className="ingredient-details">
+                <div className="ingredient-item-row">
+                  <div className="ingredient-image-container">
+                    <ImageWithFallback 
+                      src={ingredientItem.imgUrl} 
+                      alt={ingredientItem.name} 
+                      className="ingredient-image"
+                    />
+                  </div>
+                  <div className="ingredient-name-container">
                     <span className="ingredient-name">{ingredientItem.name}</span>
                     <span className="ingredient-quantity">x{totalQuantity}</span>
                   </div>
-                </div>
-                <div className="price-input">
-                  <label>Prix unitaire:</label>
-                  <div className="price-input-wrapper">
-                    <input 
-                      type="number" 
-                      min="0" 
-                      value={tempPrices[ingredient.itemId] || 0} 
-                      onChange={(e) => handlePriceChange(ingredient.itemId, e.target.value)}
-                      onBlur={() => handlePriceConfirm(ingredient.itemId)}
-                      onKeyDown={(e) => handleKeyDown(e, ingredient.itemId)}
-                      onWheel={handleWheel}
-                    />
-                    {tempPrices[ingredient.itemId] !== prices[ingredient.itemId] && (
-                      <button 
-                        className="price-validate-btn" 
-                        onClick={() => handlePriceConfirm(ingredient.itemId)}
-                        title="Valider le prix"
-                      >
-                        ✓
-                      </button>
-                    )}
+                  <div className="ingredient-price-container">
+                    <div className="price-input-wrapper">
+                      <input 
+                        type="number" 
+                        min="0" 
+                        value={tempPrices[ingredient.itemId] || 0} 
+                        onChange={(e) => handlePriceChange(ingredient.itemId, e.target.value)}
+                        onBlur={() => handlePriceConfirm(ingredient.itemId)}
+                        onKeyDown={(e) => handleKeyDown(e, ingredient.itemId)}
+                        onWheel={handleWheel}
+                      />
+                      {tempPrices[ingredient.itemId] !== prices[ingredient.itemId] && (
+                        <button 
+                          className="price-validate-btn" 
+                          onClick={() => handlePriceConfirm(ingredient.itemId)}
+                          title="Valider le prix"
+                        >
+                          ✓
+                        </button>
+                      )}
+                    </div>
+                    <span className="label-kamas">kamas</span>
                   </div>
-                  <span className="label-kamas">kamas</span>
-                  <span 
-                    className={`price-indicator ${getPriceIndicator(ingredient.itemId, prices[ingredient.itemId] || 0)}`}
-                    onClick={(e) => showHistory(ingredient.itemId, ingredientItem.name, e)}
-                    title="Voir l'historique des prix"
-                  ></span>
+                  <div className="ingredient-indicator-container">
+                    <span 
+                      className={`price-indicator ${getPriceIndicator(ingredient.itemId, prices[ingredient.itemId] || 0)}`}
+                      onClick={(e) => showHistory(ingredient.itemId, ingredientItem.name, e)}
+                      title="Voir l'historique des prix"
+                    ></span>
+                  </div>
                 </div>
                 {tempPrices[ingredient.itemId] !== prices[ingredient.itemId] && (
                   <div className="price-not-saved">Prix non validé</div>
