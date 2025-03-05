@@ -18,9 +18,10 @@
 }
 
 .header-logo {
-  height: 50px; /* Hauteur du logo */
-  width: auto;
+  height: auto; /* Adapter la hauteur automatiquement */
+  width: 200px; /* Largeur fixe pour le nouveau logo */
   display: block;
+  margin-right: 10px;
 }
 
 .header-right {
@@ -36,12 +37,12 @@
   }
   
   .header-logo {
-    height: 40px; /* Logo légèrement plus petit sur mobile */
+    width: 160px; /* Logo légèrement plus petit sur mobile */
   }
 }
 
 @media (max-width: 480px) {
   .header-logo {
-    height: 35px; /* Encore plus petit sur très petits écrans */
+    width: 140px; /* Encore plus petit sur très petits écrans */
   }
 }
