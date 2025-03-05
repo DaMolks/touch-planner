@@ -110,11 +110,13 @@ const ItemsPanel = () => {
                         <div className="item-list-name" title={item.name}>
                           {item.name}
                         </div>
-                        <div className="item-list-type">
-                          <div className="item-list-type-inner" title={item.type}>
-                            {item.type}
+                        {item.type && (
+                          <div className="item-list-type">
+                            <div className="item-list-type-inner" title={item.type}>
+                              {item.type}
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     ))}
                   </div>
