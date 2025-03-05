@@ -66,6 +66,7 @@
   color: var(--text-color);
   flex: 0 0 auto;
   margin-right: 20px;
+  text-align: left;
 }
 
 .setting-value {
@@ -73,6 +74,7 @@
   flex-direction: row;
   align-items: center;
   flex: 1;
+  text-align: left;
 }
 
 /* Styles pour les sections qui ne sont pas en ligne */
@@ -152,6 +154,7 @@
   align-items: center;
   padding: 6px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: left;
 }
 
 .calculation-row:last-child {
